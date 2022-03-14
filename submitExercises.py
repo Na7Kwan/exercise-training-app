@@ -33,9 +33,9 @@ def markOne(key, date):
                 testInt = False
             except ValueError():
                 print("The input was not a whole number, try again")
-        completed = completeSets
         if completeSets > currentSets:
             completeSets = currentSets
+        completed = completeSets
         currentSets = currentSets - completeSets
         if currentSets > 0: #if all sets not completed, ask for half completed sets
             testInt = True
