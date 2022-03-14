@@ -43,7 +43,7 @@ def mainMenu(days, date): #runs through main menu
 
 
 def editExercise(): #runs through exercise edit menu
-    print("Edit Menu:")
+    print("\nEdit Menu:")
     print(exerciseList.keyList()) #prints list of exercises
     print("Type the name of the exercise you wish to edit")
     selectedKey = input().lower()
@@ -56,7 +56,7 @@ def editExercise(): #runs through exercise edit menu
 
 
 def addRep(date): #runs through submit menu
-    print("Submit Today's Reps:")
+    print("\nSubmit Today's Reps:")
     print(exerciseList.keyList()) #prints list of exercises
     print("Type the name of the exercise you wish to submit to (alternatively, type \"mark all complete\")")
     selected = input().lower()
