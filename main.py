@@ -83,6 +83,17 @@ def askAgain(): #shorten code line lengths for clarity
 loop = True
 
 try:
+    file = open("completionRecord.txt", "r")
+    file.close()
+    file = open("exerciseList.txt", "r")
+    file.close()
+except:
+    file = open("completionRecord.txt", "a+")
+    file.close()
+    file = open("exerciseList.txt", "a+")
+    file.close()
+
+try:
     file = open("daily.txt", "r")
     infoString = file.read()
     dateStart = infoString.split(" - ")[3]
