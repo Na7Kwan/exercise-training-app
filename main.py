@@ -28,16 +28,16 @@ def getDate(): #gets the current date in string format
 
 def mainMenu(days, date): #runs through main menu
     if days > 1: #if not first time
-        print("Welcome back")
+        print("\nWelcome back")
         daily.checkDailyFirst(date) #runs daily first login check if not first time
     else: #if first time
-        print ("Welcome")
+        print ("\nWelcome")
         daily.firstTime(date) #runs daily.txt set up if first time
     print("Today is Day " + str(days) + " of using this app")
     exerciseList.resetCheck() #checks if exerciseList has been reset
     exerciseList.checkComplete() #checks if all activities are complete
-    print("Your activity this past week:\n" + completionRecord.get()) #gets visual of exercise in past 7 days
-    print("Today's exercises:")
+    print("\nYour activity this past week:\n" + completionRecord.get()) #gets visual of exercise in past 7 days
+    print("\nToday's exercises:")
     print(exerciseList.getList()) #gets list of exercises and remaining reps and sets for the day
     print("Actions: [S\u0332ubmit Today's Reps] [A\u0332dd Exercise] [E\u0332dit Exercises] [Q\u0332uit]")
 
