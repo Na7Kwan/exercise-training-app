@@ -39,7 +39,7 @@ def mainMenu(days, date): #runs through main menu
     print("\nYour activity this past week:\n" + completionRecord.get()) #gets visual of exercise in past 7 days
     print("\nToday's exercises:")
     print(exerciseList.getList()) #gets list of exercises and remaining reps and sets for the day
-    print("Actions: [S\u0332ubmit Today's Reps] [A\u0332dd Exercise] [E\u0332dit Exercises] [Q\u0332uit]")
+    print("Actions: [S\u0332ubmit Today's Reps] [A\u0332dd Exercise] [E\u0332dit Exercises] [D\u0332elete Exercise] [Q\u0332uit]")
 
 
 def editExercise(): #runs through exercise edit menu
@@ -76,8 +76,24 @@ def addRep(date): #runs through submit menu
             return False
 
 
+def deleteExercise():
+    print("\nType the exercise you wish to delete:")
+    print(exerciseList.keyList()) #prints list of exercises
+    selected = input().lower()
+    list = exerciseList.keyList().split("\n")[0:-1] #creates list of all exercises
+    exists = False
+    for exercise in list: #tests if exercise exists
+        if exercise.lower() == selected:
+            exists = True
+    if exists:
+        success = addExercise.deleteExercise(selected)
+        return success
+    else:
+        return False
+
+
 def askAgain(): #shorten code line lengths for clarity
-    print("Actions: [S\u0332ubmit Today's Reps] [A\u0332dd Exercise] [E\u0332dit Exercises] [Q\u0332uit]")
+    print("Actions: [S\u0332ubmit Today's Reps] [A\u0332dd Exercise] [E\u0332dit Exercises] [D\u0332elete Exercise] [Q\u0332uit]")
 
 
 loop = True
@@ -139,6 +155,16 @@ while loop:
             prompt = False
             loop = False
             success = editExercise() #runs edit exercise menu
+            if not success: #loops action menu if fails
+                print("error")
+                prompt = True
+                askAgain()
+            else: #returns to main menu if succeeds
+                loop = True
+        elif choice.lower() == "d": #deletes exercise
+            prompt = False
+            loop = False
+            success = deleteExercise() #runs delete exercise menu
             if not success: #loops action menu if fails
                 print("error")
                 prompt = True

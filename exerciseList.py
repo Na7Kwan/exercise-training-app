@@ -133,9 +133,9 @@ def resetCheck(): #resets the daily goal
         except:
             exercises = {}
         for entry in exercises: #for every exercise replace today reps and sets with "tmrw" goal
-            doneSets = exercises[entry][1]
             oldGoal = exercises[entry][4].split("*")
-            newGoal = exerciseTarget.evaluateExercise(doneSets, oldGoal, entry) #runs exercise goal evaluation
+            temp = 0
+            newGoal = exerciseTarget.evaluateExercise(temp, oldGoal, entry) #runs exercise goal evaluation
             reps = oldGoal[0]
             sets = oldGoal[1]
             exercises[entry][0] = reps
@@ -188,5 +188,20 @@ def recordUpdate(key, original, completed, date): #updates exercise after every 
     record[date] = [completed, original] #updates new entry with date, and completed and original goal
     file = open(key + "_record.txt", "w")
     file.write(str(record))
+    file.close()
+    return True
+
+
+def deleteItem(key): #allows for deleting of an exercise from exerciseList.txt from console
+    file = open("exerciseList.txt", "r")
+    exercisesStr = file.read()
+    file.close()
+    try: #turns string into dict if not empty
+        exercises = ast.literal_eval(exercisesStr)
+    except:
+        exercises = {}
+    exercises.pop(key, None)
+    file = open("exerciseList.txt", "w")
+    file.write(str(exercises))
     file.close()
     return True

@@ -1,4 +1,5 @@
 import exerciseList;
+import os;
 
 
 def add(date): #runs through process of adding exercises
@@ -57,3 +58,18 @@ def add(date): #runs through process of adding exercises
         file.write(str(exerciseRecord))
         file.close()
         return success
+
+
+def deleteExercise(key): #WIP
+    print("\nType the name of the exercise again to confirm: " + key)
+    print("Else the action will cancel")
+    reply = input()        
+    if reply == key:
+        if os.path.exists(key + "_record.txt"):
+            os.remove(key + "_record.txt")
+        else:
+            success = False
+        success = exerciseList.deleteItem(key)
+    else:
+        success = False
+    return success
