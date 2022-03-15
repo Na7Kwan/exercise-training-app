@@ -1,5 +1,6 @@
 # Exercise Training App
 Developed for fun and mainly personal use to stay fit during Covid.  
+  
 Current functions of the app are:  
 - Add exercises to track  
 - Delete exercises from being tracked  
