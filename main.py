@@ -151,10 +151,3 @@ while loop:
         else: #loops action menu if input not understood by code
             print("Not an action, try again")
             askAgain()
-
-
-
-#TO DO:
-# - proper errors messages specific to each error
-# - potentially UI
-# - create function which updates exercise targets

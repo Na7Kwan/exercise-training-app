@@ -133,14 +133,14 @@ def resetCheck(): #resets the daily goal
         except:
             exercises = {}
         for entry in exercises: #for every exercise replace today reps and sets with "tmrw" goal
-            oldGoal = exercises[entry][4]
-            newGoal = exerciseTarget.evaluateExercise(oldGoal) #runs exercise goal evaluation
-            reps = newGoal[0]
-            sets = newGoal[1]
-            tmrw = str(reps) + "*" + str(sets)
+            doneSets = exercises[entry][1]
+            oldGoal = exercises[entry][4].split("*")
+            newGoal = exerciseTarget.evaluateExercise(doneSets, oldGoal, entry) #runs exercise goal evaluation
+            reps = oldGoal[0]
+            sets = oldGoal[1]
             exercises[entry][0] = reps
             exercises[entry][1] = sets
-            exercises[entry][4] = tmrw
+            exercises[entry][4] = newGoal
         file = open("exerciseList.txt", "w")
         file.write(str(exercises))
         file.close()
