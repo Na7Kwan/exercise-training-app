@@ -1,10 +1,5 @@
-/bar crunches_record.txt
+/__pycache__
 /completionRecord.txt
-/crunches_record.txt
 /daily.txt
 /exerciseList.txt
-/pull ups_record.txt
-/push ups_record.txt
-/squats_record.txt
-/__pycache__
-trial_record.txt
+records
