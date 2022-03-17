@@ -20,9 +20,4 @@ v1.0.6 - Added function to delete an exercise from console, added functions to R
 v2.0.0 - Added function to update exercise targets  
 ## Planned:
 - proper errors messages specific to each error  
-<<<<<<< HEAD
 - potentially .exe file, then maybe UI  
-=======
-- potentially .exe file, then maybe UI  
-- create function which updates exercise targets  
->>>>>>> e2029ec5830081811ba7c9cd92ce9d4c828d3cc4
