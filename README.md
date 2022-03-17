@@ -7,6 +7,8 @@ Current functions of the app are:
 - Edit exercise details  
 - Submit reps to app either each exercise individually or marking all as complete  
 - Keeps record of whether exercises have been completed each day  
+- Lowers target if the exercise is too hard  
+- Raises target if the exercise has been completed consistently  
 ## Changelog:
 v1.0.0 - Initial push of app  
 v1.0.1 - Added .txt file setups  
@@ -15,7 +17,7 @@ v1.0.3 - Main menu prompts slight formatting
 v1.0.4 - README updated for basic info  
 v1.0.5 - Updated exercise goal resets for compatability, added planned updates to README  
 v1.0.6 - Added function to delete an exercise from console, added functions to README  
+v2.0.0 - Added function to update exercise targets  
 ## Planned:
 - proper errors messages specific to each error  
 - potentially .exe file, then maybe UI  
-- create function which updates exercise targets  

@@ -134,8 +134,7 @@ def resetCheck(): #resets the daily goal
             exercises = {}
         for entry in exercises: #for every exercise replace today reps and sets with "tmrw" goal
             oldGoal = exercises[entry][4].split("*")
-            temp = 0
-            newGoal = exerciseTarget.evaluateExercise(temp, oldGoal, entry) #runs exercise goal evaluation
+            newGoal = exerciseTarget.evaluateExercise(oldGoal, entry) #runs exercise goal evaluation
             reps = oldGoal[0]
             sets = oldGoal[1]
             exercises[entry][0] = reps
