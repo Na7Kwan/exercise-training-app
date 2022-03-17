@@ -23,4 +23,4 @@ v2.0.1 - Added script .bat file for Windows
 - proper errors messages specific to each error and except catches  
 - potentially .exe file, then maybe UI  
 - include half completes in completion record  
-- save records in a folder  
+- save records in a folder within  
