@@ -18,6 +18,9 @@ v1.0.4 - README updated for basic info
 v1.0.5 - Updated exercise goal resets for compatability, added planned updates to README  
 v1.0.6 - Added function to delete an exercise from console, added functions to README  
 v2.0.0 - Added function to update exercise targets  
+v2.0.1 - Added script .bat file for Windows  
 ## Planned:
-- proper errors messages specific to each error  
+- proper errors messages specific to each error and except catches  
 - potentially .exe file, then maybe UI  
+- include half completes in completion record  
+- save records in a folder  
