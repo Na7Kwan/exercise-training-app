@@ -34,13 +34,10 @@ def evaluateExercise(oldGoal, entry):
         if recordHalf and not recentChange:
             goal[0] = int(goal[0])*0.9
             goal[0] = str(int(goal[0]))
-            newGoal = "*".join(goal)
-        else:
-            newGoal = "*".join(goal)
     except:
-        newGoal = "*".join(goal)
+        pass
 
-    try: #raises daily goal if last 5 days were done
+    try: #raises daily goal if last 5 days were done (works on 5+ reps only)
         lastFive = []
         for i in range(1, 6):
             unformatDate = todayDate - datetime.timedelta(days=i)
@@ -55,10 +52,26 @@ def evaluateExercise(oldGoal, entry):
         if recordDone and not recentChange:
             goal[0] = int(goal[0])*1.2
             goal[0] = str(int(goal[0]))
-            newGoal = "*".join(goal)
-        else:
-            newGoal = "*".join(goal)
     except:
-        newGoal = "*".join(goal)
-    
+        pass
+
+    try: #raise daily goal if last 10 days were done (works for under 5 reps only) WIP
+        lastTen = []
+        for i in range(1, 6):
+            unformatDate = todayDate - datetime.timedelta(days=i)
+            lastTen.append(unformatDate.strftime("%Y/%m/%d"))
+        recordDone = True
+        recentChange = False
+        for date in lastTen:
+            if record[date][0] != record[date][1]:
+                recordDone = False
+            if str(record[date][1]) != str(record[lastTen[0]][1]):
+                recentChange = True
+        if recordDone and not recentChange:
+            goal[0] = int(goal[0])+1
+            goal[0] = str(int(goal[0]))
+    except:
+        pass
+
+    newGoal = "*".join(goal)
     return newGoal #if nothing special, daily goal remains same

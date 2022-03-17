@@ -54,19 +54,19 @@ def add(date): #runs through process of adding exercises
         addRecord = str(original) + "*" +str(1)
         recordList = [addRecord, formatOriginal]
         exerciseRecord[date] = recordList
-        file = open(name + "_record.txt", "a+") #creates new file for exercise record
+        file = open("records\\" + name + "_record.txt", "a+") #creates new file for exercise record
         file.write(str(exerciseRecord))
         file.close()
         return success
 
 
-def deleteExercise(key): #WIP
+def deleteExercise(key):
     print("\nType the name of the exercise again to confirm: " + key)
     print("Else the action will cancel")
     reply = input()        
     if reply == key:
-        if os.path.exists(key + "_record.txt"):
-            os.remove(key + "_record.txt")
+        if os.path.exists("records\\" + key + "_record.txt"):
+            os.remove("records\\" + key + "_record.txt")
         else:
             success = False
         success = exerciseList.deleteItem(key)

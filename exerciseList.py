@@ -108,14 +108,14 @@ def testRecords(date): #checks if each exercise has its record sheet and creates
     success = True
     for entry in exercises:
         try: #tries opening record file for each exercise
-            file = open(entry + "_record.txt", "r")
+            file = open("records\\" + entry + "_record.txt", "r")
             file.close()
         except: #if it fails, create a new empty file
             success = False #report that at least one file was lost
             exerciseRecord = {}
             insert = str(exercises[entry][0]) + "*" + str(exercises[entry][1])
             exerciseRecord[date] = insert
-            file = open(entry + "_record.txt", "a+")
+            file = open("records\\" + entry + "_record.txt", "a+")
             file.write(str(exerciseRecord))
             file.close()
     return success
@@ -170,7 +170,7 @@ def checkComplete(): #checks if record is marked complete if all sets are done
 
 
 def recordUpdate(key, original, completed, date): #updates exercise after every submission in exercise records
-    file = open(key + "_record.txt", "r") #open record of specific exercise
+    file = open("records\\" + key + "_record.txt", "r") #open record of specific exercise
     exerciseRecord = file.read()
     file.close()
     try: #turns string into dict if not empty
@@ -185,7 +185,7 @@ def recordUpdate(key, original, completed, date): #updates exercise after every 
         completed = int(completed)
     completed = str(temp[0]) + "*" + str(completed)
     record[date] = [completed, original] #updates new entry with date, and completed and original goal
-    file = open(key + "_record.txt", "w")
+    file = open("records\\" + key + "_record.txt", "w")
     file.write(str(record))
     file.close()
     return True

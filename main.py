@@ -4,6 +4,7 @@ import exerciseList;
 import addExercise;
 import submitExercises;
 import daily;
+import os;
 
 
 def getDay(date): #calculates the days between current date and the date this app was first opened
@@ -97,6 +98,9 @@ def askAgain(): #shorten code line lengths for clarity
 
 
 loop = True
+
+if not os.path.exists("records"):
+    os.makedirs("records")
 
 try:
     file = open("completionRecord.txt", "r")
