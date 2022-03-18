@@ -1,13 +1,13 @@
-import datetime;
-import completionRecord;
-import exerciseList;
-import addExercise;
-import submitExercises;
-import daily;
-import os;
+import datetime; #transferred
+import completionRecord; #transferred
+import exerciseList; #transferred
+import addExercise; #transferred
+import submitExercises; #transferred
+import daily; #transferred
+import os; #transferred
 
 
-def getDay(date): #calculates the days between current date and the date this app was first opened
+def getDay(date): #calculates the days between current date and the date this app was first opened #transferred
     todayDateTime = str(datetime.datetime.now().astimezone()) #gets current date
     todayDateStr = todayDateTime.split()[0]
     todayDateList = todayDateStr.split("-") #formats the date
@@ -19,7 +19,7 @@ def getDay(date): #calculates the days between current date and the date this ap
     return(difDates.days) #returns difference
 
 
-def getDate(): #gets the current date in string format
+def getDate(): #gets the current date in string format #transferred
     todayDateTime = str(datetime.datetime.now().astimezone()) #gets current date
     todayDateStr = todayDateTime.split()[0]
     todayDateList = todayDateStr.split("-") #formats the date
@@ -27,7 +27,7 @@ def getDate(): #gets the current date in string format
     return(todayDate)
 
 
-def mainMenu(days, date): #runs through main menu
+def mainMenu(days, date): #runs through main menu  #transferred
     if days > 1: #if not first time
         print("\nWelcome back")
         daily.checkDailyFirst(date) #runs daily first login check if not first time
@@ -57,7 +57,7 @@ def editExercise(): #runs through exercise edit menu
 
 
 def addRep(date): #runs through submit menu
-    print("\nSubmit Today's Reps:")
+    print("\nSubmit Today's Sets:")
     print(exerciseList.keyList()) #prints list of exercises
     print("Type the name of the exercise you wish to submit to (alternatively, type \"mark all complete\")")
     selected = input().lower()
@@ -117,7 +117,7 @@ def detailsExercise():
         return False
 
 
-def askAgain(): #shorten code line lengths for clarity
+def askAgain(): #shorten code line lengths for clarity #transferred
     print("Actions: [S\u0332ubmit Today's Reps] [A\u0332dd Exercise] [M\u0332ore Exercise Details]") 
     print("         [E\u0332dit Exercises] [D\u0332elete Exercise] [O\u0332ptions] [Q\u0332uit]")
     return True
@@ -125,10 +125,10 @@ def askAgain(): #shorten code line lengths for clarity
 
 loop = True
 
-if not os.path.exists("records"):
+if not os.path.exists("records"): #transferred
     os.makedirs("records")
 
-try:
+try: #transferred
     file = open("completionRecord.txt", "r")
     file.close()
     file = open("exerciseList.txt", "r")
@@ -139,7 +139,7 @@ except:
     file = open("exerciseList.txt", "a+")
     file.close()
 
-try:
+try: #transferred
     file = open("daily.txt", "r")
     infoString = file.read()
     dateStart = infoString.split(" - ")[3]
@@ -147,12 +147,12 @@ try:
 except:
     dateStart = getDate()
 
-daysSince = getDay(dateStart)
+daysSince = getDay(dateStart) #transferred
 if completionRecord.fill(daysSince) == False: #checks if completion record matches days past
     print("RecordError: Record mismatch")
     loop = False #exits app
 
-testRecords = exerciseList.testRecords(getDate()) #checks if each exercise has its file
+testRecords = exerciseList.testRecords(getDate()) #checks if each exercise has its file #transferred
 if not testRecords:
     print("RecordError: One or more exercise records were missing, data lost")
 

@@ -21,8 +21,9 @@ v2.0.0 - Added function to update exercise targets
 v2.0.1 - Added script .bat file for Windows  
 v2.0.2 - Added more exercise target update conditions, moved exercise records into folder  
 v2.0.3 - Added half completes to completion record, added show exercise details, added specific error messages  
+v2.0.4 - Minor changes to lay groundwork for GUI  
 ## Planned:
 - proper except catches  
-- potentially .exe file, then maybe UI  
+- potentially .exe file, then maybe UI !!WIP!!  
 - settings page  
 - exercise rotation based on day of the week  

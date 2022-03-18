@@ -15,7 +15,14 @@ def getList(key = False): #fetches reps and sets remaining per exercise each day
     if not key: #if a key is not specified
         response = ""
         for entry in exercises:
-            name = entry.capitalize()
+            try:
+                nameSplit = entry.split(" ")
+                nameList = []
+                for word in nameSplit:
+                    nameList.append(word.capitalize())
+                name = " ".join(nameList)
+            except:
+                name = entry.capitalize()
             if len(entry) < 12: #if exercise name less than 12 char, fill to 12
                 response = response + name + ": "
                 spaces = 12 - len(entry)
