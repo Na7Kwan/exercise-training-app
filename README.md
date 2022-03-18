@@ -1,5 +1,6 @@
 # Exercise Training App
-Developed for fun and mainly personal use to stay fit during Covid.  
+Developed for fun and mainly personal use to stay fit during Covid. 
+Readily available for use on Windows OS via .bat script.  
   
 Current functions of the app are:  
 - Add exercises to track  
@@ -22,8 +23,12 @@ v2.0.1 - Added script .bat file for Windows
 v2.0.2 - Added more exercise target update conditions, moved exercise records into folder  
 v2.0.3 - Added half completes to completion record, added show exercise details, added specific error messages  
 v2.0.4 - Minor changes to lay groundwork for GUI  
+v2.0.5 - Minor changes to lay groundwork for GUI, added notes to README
 ## Planned:
 - proper except catches  
-- potentially .exe file, then maybe UI !!WIP!!  
+- potentially .exe file, then maybe GUI  
 - settings page  
 - exercise rotation based on day of the week  
+## Notes:
+- completionRecord.py and addExercise.py needs adjusting for easier porting  
+- main_gui_test.py WIP for GUI  

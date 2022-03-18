@@ -43,7 +43,6 @@ def fill(days): #fills in skipped days when the app was not opened
         if exerciseList.checkHalf():
             missedDays = missedDays - 1
             file.write("H, ")
-        print("You skipped " + str(missedDays) + " day(s)")
         for _ in range(missedDays): #adds N for each day missed
             file.write("N, ")
         file.close()
