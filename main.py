@@ -40,7 +40,7 @@ def mainMenu(days, date): #runs through main menu
     print("\nYour activity this past week:\n" + completionRecord.get()) #gets visual of exercise in past 7 days
     print("\nToday's exercises:")
     print(exerciseList.getList()) #gets list of exercises and remaining reps and sets for the day
-    print("Actions: [S\u0332ubmit Today's Reps] [A\u0332dd Exercise] [E\u0332dit Exercises] [D\u0332elete Exercise] [Q\u0332uit]")
+    return True
 
 
 def editExercise(): #runs through exercise edit menu
@@ -93,8 +93,34 @@ def deleteExercise():
         return False
 
 
+def detailsExercise():
+    print("\nType the exercise you wish to view more details on:")
+    print(exerciseList.keyList()) #prints list of exercises
+    selected = input().lower()
+    list = exerciseList.keyList().split("\n")[0:-1] #creates list of all exercises
+    exists = False
+    for exercise in list: #tests if exercise exists
+        if exercise.lower() == selected:
+            exists = True
+    if exists:
+        exerciseDetails = exerciseList.getList(selected)
+        print("\nYou have " + str(exerciseDetails[1]) + " set(s) of " + str(exerciseDetails[0]) + " rep(s) left.")
+        print("This exercise targets your " + str(exerciseDetails[2]) + ".")
+        original = exerciseDetails[3].split("*")
+        current = exerciseDetails[4].split("*")
+        print("Your original daily goal was " + str(original[1]) + " set(s) of " + str(original[0]) + " rep(s).")
+        print("Your current daily goal is " + str(current[1]) + " set(s) of " + str(current[0]) + " rep(s).")
+        print("\nPress enter to continue:" )
+        wait = input()
+        return True
+    else:
+        return False
+
+
 def askAgain(): #shorten code line lengths for clarity
-    print("Actions: [S\u0332ubmit Today's Reps] [A\u0332dd Exercise] [E\u0332dit Exercises] [D\u0332elete Exercise] [Q\u0332uit]")
+    print("Actions: [S\u0332ubmit Today's Reps] [A\u0332dd Exercise] [M\u0332ore Exercise Details]") 
+    print("         [E\u0332dit Exercises] [D\u0332elete Exercise] [O\u0332ptions] [Q\u0332uit]")
+    return True
 
 
 loop = True
@@ -123,15 +149,16 @@ except:
 
 daysSince = getDay(dateStart)
 if completionRecord.fill(daysSince) == False: #checks if completion record matches days past
-    print("Start up error, please check records")
+    print("RecordError: Record mismatch")
     loop = False #exits app
 
 testRecords = exerciseList.testRecords(getDate()) #checks if each exercise has its file
 if not testRecords:
-    print("One or more exercise records were missing, data lost")
+    print("RecordError: One or more exercise records were missing, data lost")
 
 while loop:
     mainMenu(daysSince+1, str(getDate())) #runs main menu
+    askAgain()
     prompt = True
     while prompt:
         choice = input() #input for action menu
@@ -140,7 +167,7 @@ while loop:
             loop = False
             success = addRep(str(getDate())) #runs add rep menu
             if not success: #loops action menu if fails
-                print("error")
+                print("SubmitError: Your sets could not be submitted")
                 prompt = True
                 askAgain()
             else: #returns to main menu if succeeds
@@ -150,9 +177,19 @@ while loop:
             loop = False
             success = addExercise.add(getDate()) #runs through process of adding a new exercise
             if not success: #loops action menu if fails
-                print("error")
+                print("EditError: Your exercise could not be added")
                 askAgain()
                 prompt = True
+            else: #returns to main menu if succeeds
+                loop = True
+        elif choice.lower() == "m": #show more exercise details
+            prompt = False
+            loop = False
+            success = detailsExercise()
+            if not success: #loops action menu if fails
+                print("DisplayError: Your exercise details could not be displayed")
+                prompt = True
+                askAgain()
             else: #returns to main menu if succeeds
                 loop = True
         elif choice.lower() == "e": #edit exercises
@@ -160,7 +197,7 @@ while loop:
             loop = False
             success = editExercise() #runs edit exercise menu
             if not success: #loops action menu if fails
-                print("error")
+                print("EditError: Your exercise could not be edited")
                 prompt = True
                 askAgain()
             else: #returns to main menu if succeeds
@@ -170,7 +207,17 @@ while loop:
             loop = False
             success = deleteExercise() #runs delete exercise menu
             if not success: #loops action menu if fails
-                print("error")
+                print("EditError: Your exercise could not be deleted")
+                prompt = True
+                askAgain()
+            else: #returns to main menu if succeeds
+                loop = True
+        elif choice.lower() == "o": #opens options
+            prompt = False
+            loop = False
+            success = False #temp
+            if not success: #loops action menu if fails
+                print("AppError: WIP") #WORK IN PROGRESS
                 prompt = True
                 askAgain()
             else: #returns to main menu if succeeds
@@ -179,5 +226,5 @@ while loop:
             prompt = False
             loop = False
         else: #loops action menu if input not understood by code
-            print("Not an action, try again")
+            print("UserError: The input was not a command, try again")
             askAgain()

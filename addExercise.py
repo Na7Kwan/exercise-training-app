@@ -27,7 +27,7 @@ def add(date): #runs through process of adding exercises
             try: #tests if input is int
                 int(original)
                 testInt = False
-            except ValueError():
+            except:
                 print("The input was not a whole number, try again")
         
         testInt = True
@@ -37,7 +37,7 @@ def add(date): #runs through process of adding exercises
             try: #tests if input is int
                 int(sets)
                 testInt = False
-            except ValueError():
+            except:
                 print("The input was not a whole number, try again")
 
         formatOriginal = str(original) + "*" + str(sets)

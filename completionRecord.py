@@ -46,9 +46,11 @@ def fill(days): #fills in skipped days when the app was not opened
         print("You skipped " + str(missedDays) + " day(s)")
         for _ in range(missedDays): #adds N for each day missed
             file.write("N, ")
+        file.close()
         return True
     elif len(fileList) > days+1: #if days in completionRecord.txt more than days past, pass error
-        return False #BUG sometimes record is 2 more than days instead of one
+        file.close()
+        return False
     else: #if they equal then nothing
+        file.close()
         return True
-    file.close()

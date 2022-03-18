@@ -207,4 +207,22 @@ def deleteItem(key): #allows for deleting of an exercise from exerciseList.txt f
 
 
 def checkHalf():
-    return True
+    file = open("exerciseList.txt", "r")
+    exercisesStr = file.read()
+    file.close()
+    try: #turns string into dict if not empty
+        exercises = ast.literal_eval(exercisesStr)
+    except:
+        exercises = {}
+    sumPercents = 0
+    for key in exercises:
+        done = int(exercises[key][1])
+        goal = exercises[key][4]
+        total = int(goal.split("*")[1])
+        percent = done / total
+        sumPercents = sumPercents + percent
+    averageCompletion = sumPercents / ln(exercises)
+    if averageCompletion > 0.5:
+        return True
+    else:
+        return False
