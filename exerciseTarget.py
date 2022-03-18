@@ -3,13 +3,12 @@ import datetime;
 
 
 def evaluateExercise(oldGoal, entry):
-    print("resetting " + entry)
     goal = oldGoal
     todayDateTime = str(datetime.datetime.now().astimezone()) #gets current date
     todayDateStr = todayDateTime.split()[0]
     todayDateList = todayDateStr.split("-")
     todayDate = datetime.date(int(todayDateList[0]), int(todayDateList[1]), int(todayDateList[2]))
-    file = open(entry + "_record.txt", "r") #opens record of the exercise
+    file = open("records\\" + entry + "_record.txt", "r") #opens record of the exercise
     recordStr = file.read()
     file.close()
     try: #turns string into dict if not empty
