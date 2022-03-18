@@ -17,7 +17,7 @@ def add(date): #runs through process of adding exercises
     else: #otherwise continue with adding process
         newExercise = []
         print("Type the muscle group this exercise targets")
-        muscleGroup = input()
+        muscleGroup = input().lower()
 
         print("Perform the exercise and attempt the maximum in one go without overexertion")
         testInt = True
