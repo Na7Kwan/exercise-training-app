@@ -204,3 +204,7 @@ def deleteItem(key): #allows for deleting of an exercise from exerciseList.txt f
     file.write(str(exercises))
     file.close()
     return True
+
+
+def checkHalf():
+    return True

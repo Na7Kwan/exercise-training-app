@@ -1,3 +1,6 @@
+import exerciseList;
+
+
 def toVisual(fL): #builds heatmap
     buildRecord = []
     for record in fL:
@@ -8,6 +11,13 @@ def toVisual(fL): #builds heatmap
         else:
             buildRecord.append("🟥")
     return buildRecord
+
+
+def insert(letter): #allows for letters to be inserted into the completion record
+    file = open("completionRecord.txt", "a")
+    file.write(letter + ", ")
+    file.close()
+    return True
 
 
 def get(): #fetches completion record of last 7 days
@@ -30,6 +40,9 @@ def fill(days): #fills in skipped days when the app was not opened
     fileList = fileContent.split(", ")[0:-1]
     if len(fileList) < days: #checks if number of records on completionRecord.txt is less than days past
         missedDays = days - len(fileList)
+        if exerciseList.checkHalf():
+            missedDays = missedDays - 1
+            file.write("H, ")
         print("You skipped " + str(missedDays) + " day(s)")
         for _ in range(missedDays): #adds N for each day missed
             file.write("N, ")
@@ -39,10 +52,3 @@ def fill(days): #fills in skipped days when the app was not opened
     else: #if they equal then nothing
         return True
     file.close()
-
-
-def insert(letter): #allows for letters to be inserted into the completion record
-    file = open("completionRecord.txt", "a")
-    file.write(letter + ", ")
-    file.close()
-    return True

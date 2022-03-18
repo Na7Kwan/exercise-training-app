@@ -20,7 +20,7 @@ v1.0.6 - Added function to delete an exercise from console, added functions to R
 v2.0.0 - Added function to update exercise targets  
 v2.0.1 - Added script .bat file for Windows  
 v2.0.2 - Added more exercise target update conditions, moved exercise records into folder  
+v2.0.3 - Added half completes to completion record
 ## Planned:
 - proper errors messages specific to each error and except catches  
 - potentially .exe file, then maybe UI  
-- include half completes in completion record  
