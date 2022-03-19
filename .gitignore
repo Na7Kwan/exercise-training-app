@@ -3,5 +3,7 @@
 /daily.txt
 /exerciseList.txt
 settings.txt
+main.spec
 records
-main_gui_test.py
+dist
+build

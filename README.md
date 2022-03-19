@@ -30,10 +30,9 @@ v2.0.4 - Minor changes to lay groundwork for GUI
 v2.0.5 - Minor changes to lay groundwork for GUI, added notes to README  
 v2.0.6 - Major changes to lay groundwork for GUI, unified prompts  
 v2.0.7 - Added settings page with basics options  
+v3.0.0 - Added GUI, added .exe file for Windows  
 ## Planned:
 - proper except catches  
-- potentially .exe file, then maybe GUI  
 - exercise rotation based on day of the week  
 ## Notes:
-- Ready for porting to GUI  
 - Continue to add more settings options  
