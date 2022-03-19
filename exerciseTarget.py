@@ -1,8 +1,22 @@
 import ast;
 import datetime;
+import settings;
 
 
 def evaluateExercise(oldGoal, entry):
+    difficulty = settings.readSettings()[difficulty]
+    if difficulty == "normal":
+        raiseMultiplier = 1.2
+        lowerMultiplier = 0.9
+    elif difficulty == "hard":
+        raiseMultiplier = 1.5
+        lowerMultiplier = 1
+    elif difficulty == "easy":
+        raiseMultiplier = 1.1
+        lowerMultiplier = 0.7
+    else:
+        raiseMultiplier = 1
+        lowerMultiplier = 1
     goal = oldGoal
     todayDateTime = str(datetime.datetime.now().astimezone()) #gets current date
     todayDateStr = todayDateTime.split()[0]
@@ -31,7 +45,7 @@ def evaluateExercise(oldGoal, entry):
             if str(record[date][1]) != str(record[lastThree[0]][1]):
                 recentChange = True
         if recordHalf and not recentChange:
-            goal[0] = int(goal[0])*0.9
+            goal[0] = int(goal[0])*lowerMultipler
             goal[0] = str(int(goal[0]))
     except:
         pass
@@ -49,7 +63,7 @@ def evaluateExercise(oldGoal, entry):
             if str(record[date][1]) != str(record[lastFive[0]][1]):
                 recentChange = True
         if recordDone and not recentChange:
-            goal[0] = int(goal[0])*1.2
+            goal[0] = int(goal[0])*raiseMultiplier
             goal[0] = str(int(goal[0]))
     except:
         pass

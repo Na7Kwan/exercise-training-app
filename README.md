@@ -10,6 +10,10 @@ Current functions of the app are:
 - Keeps record of whether exercises have been completed each day  
 - Lowers target if the exercise is too hard  
 - Raises target if the exercise has been completed consistently  
+  
+Customisable Options:  
+- Count half sets  
+- Difficulty  
 ## Changelog:
 v1.0.0 - Initial push of app  
 v1.0.1 - Added .txt file setups  
@@ -25,10 +29,11 @@ v2.0.3 - Added half completes to completion record, added show exercise details,
 v2.0.4 - Minor changes to lay groundwork for GUI  
 v2.0.5 - Minor changes to lay groundwork for GUI, added notes to README  
 v2.0.6 - Major changes to lay groundwork for GUI, unified prompts  
+v2.0.7 - Added settings page with basics options  
 ## Planned:
 - proper except catches  
 - potentially .exe file, then maybe GUI  
-- settings page  
 - exercise rotation based on day of the week  
 ## Notes:
 - Ready for porting to GUI  
+- Continue to add more settings options  

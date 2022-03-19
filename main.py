@@ -5,6 +5,7 @@ import addExercise; #transferred
 import submitExercises; #transferred
 import daily; #transferred
 import os; #transferred
+import settings; #transferred
 
 
 def getDay(date): #calculates the days between current date and the date this app was first opened #transferred
@@ -74,6 +75,16 @@ def addRep(date): #runs through submit menu
             exerciseDetails = exerciseList.getList(selected) #retrieves current remaining reps and sets
             currentReps = int(exerciseDetails[0])
             currentSets = int(exerciseDetails[1])
+            if settings.readSettings()["halfSets"] == "on":
+                halfOn = True
+            else:
+                halfOn = False
+            if settings.readSettings()["difficulty"] == "hard":
+                scale = 0.7
+            elif settings.readSettings()["difficulty"] == "easy":
+                scale = 0.95
+            else:
+                scale = 0.85
             if currentReps == 0 and currentSets == 0: #error submitting if already completed
                 return False
             else:
@@ -89,7 +100,7 @@ def addRep(date): #runs through submit menu
                 if completeSets > currentSets:
                     completeSets = currentSets
                 currentSets = currentSets - completeSets
-                if currentSets > 0:
+                if currentSets > 0 and halfOn:
                     testInt = True
                     while testInt:
                         print("Type the number of incomplete sets attempted")
@@ -127,7 +138,7 @@ def addRep(date): #runs through submit menu
                                     else:
                                         testInt = False
                                 calculatedSets = sumReps // currentReps #calculates how many sets would have been done
-                                calculatedSets = calculatedSets * 0.85 #multiplier due to time spread
+                                calculatedSets = calculatedSets * scale #multiplier due to time spread
                                 calculatedSets = round(calculatedSets)
                             currentSets = currentSets - calculatedSets
                 success = submitExercises.markOne(selected, currentSets, date)
@@ -173,6 +184,20 @@ def addNewExercise(date):
             except:
                 print("The input was not a whole number, try again")
         success = addExercise.add(name, muscleGroup, original, sets, date)
+    return success
+
+
+def options(): #transferred
+    options = settings.readSettings()
+    for option in options:
+        print("\n" + option.capitalize() + ":")
+        print(options[option])
+
+    print("\nType the option you wish to edit:")
+    name = input().lower()
+    print("\nType the change you wish to make:")
+    edit = input().lower()
+    success = settings.changeSetting(name, edit)
     return success
 
 
@@ -238,11 +263,16 @@ try: #transferred
     file.close()
     file = open("exerciseList.txt", "r")
     file.close()
+    file = open("settings.txt", "r")
+    file.close()
 except:
     file = open("completionRecord.txt", "a+")
     file.close()
     file = open("exerciseList.txt", "a+")
     file.close()
+    file = open("settings.txt", "a+")
+    file.close()
+    settings.setupSettings()
 
 try: #transferred
     file = open("daily.txt", "r")
@@ -320,9 +350,9 @@ while loop:
         elif choice.lower() == "o": #opens options
             prompt = False
             loop = False
-            success = False #temp
+            success = options() #runs options menu
             if not success: #loops action menu if fails
-                print("AppError: WIP") #WORK IN PROGRESS
+                print("AppError: Your changes could not be made")
                 prompt = True
                 askAgain()
             else: #returns to main menu if succeeds
