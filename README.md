@@ -1,5 +1,5 @@
 # Exercise Training App
-Developed for fun and mainly personal use to stay fit during Covid. 
+Developed for fun and mainly personal use to stay fit during Covid.  
 Readily available for use on Windows OS via .bat script.  
   
 Current functions of the app are:  
