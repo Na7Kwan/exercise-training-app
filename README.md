@@ -23,12 +23,12 @@ v2.0.1 - Added script .bat file for Windows
 v2.0.2 - Added more exercise target update conditions, moved exercise records into folder  
 v2.0.3 - Added half completes to completion record, added show exercise details, added specific error messages  
 v2.0.4 - Minor changes to lay groundwork for GUI  
-v2.0.5 - Minor changes to lay groundwork for GUI, added notes to README
+v2.0.5 - Minor changes to lay groundwork for GUI, added notes to README  
+v2.0.6 - Major changes to lay groundwork for GUI, unified prompts  
 ## Planned:
 - proper except catches  
 - potentially .exe file, then maybe GUI  
 - settings page  
 - exercise rotation based on day of the week  
 ## Notes:
-- completionRecord.py and addExercise.py needs adjusting for easier porting  
-- main_gui_test.py WIP for GUI  
+- Ready for porting to GUI  

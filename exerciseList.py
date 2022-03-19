@@ -49,7 +49,15 @@ def keyList(): #returns a list of exercise names
         exercises = {}
     list = ""
     for entry in exercises: #builds list of exercise names
-        list = list + entry.capitalize() + "\n"
+        try:
+            nameSplit = entry.split(" ")
+            nameList = []
+            for word in nameSplit:
+                nameList.append(word.capitalize())
+                name = " ".join(nameList)
+        except:
+            name = entry.capitalize()
+        list = list + name + "\n"
     return list
 
 
@@ -228,7 +236,7 @@ def checkHalf():
         total = int(goal.split("*")[1])
         percent = done / total
         sumPercents = sumPercents + percent
-    averageCompletion = sumPercents / ln(exercises)
+    averageCompletion = sumPercents / len(exercises)
     if averageCompletion > 0.5:
         return True
     else:

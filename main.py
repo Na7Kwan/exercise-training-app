@@ -43,7 +43,7 @@ def mainMenu(days, date): #runs through main menu  #transferred
     return True
 
 
-def editExercise(): #runs through exercise edit menu
+def editExercise(): #runs through exercise edit menu #transferred
     print("\nEdit Menu:")
     print(exerciseList.keyList()) #prints list of exercises
     print("Type the name of the exercise you wish to edit")
@@ -71,13 +71,112 @@ def addRep(date): #runs through submit menu
             if exercise.lower() == selected:
                 exists = True
         if exists:
-            success = submitExercises.markOne(selected, date) #if exercise exists, run submit function
-            return success
+            exerciseDetails = exerciseList.getList(selected) #retrieves current remaining reps and sets
+            currentReps = int(exerciseDetails[0])
+            currentSets = int(exerciseDetails[1])
+            if currentReps == 0 and currentSets == 0: #error submitting if already completed
+                return False
+            else:
+                testInt = True
+                while testInt:
+                    print("Type the number of sets completed (ignore half complete sets)") #marks completed sets done
+                    completeSets = input()
+                    try: #tests if input is int
+                        completeSets = int(completeSets)
+                        testInt = False
+                    except ValueError():
+                        print("The input was not a whole number, try again")
+                if completeSets > currentSets:
+                    completeSets = currentSets
+                currentSets = currentSets - completeSets
+                if currentSets > 0:
+                    testInt = True
+                    while testInt:
+                        print("Type the number of incomplete sets attempted")
+                        completeHalfSets = input()
+                        try: #tests if input is int
+                            completeHalfSets = int(completeHalfSets)
+                            testInt = False
+                        except ValueError():
+                            print("The input was not a whole number, try again")
+                        if completeHalfSets > 0: #if half sets were done, ask for reps
+                            testInt = True
+                            while testInt:
+                                print("Type the number of reps done per half completed sets (separated by \"-\")")
+                                print("If you do not wish to count half reps, type \"0\"")
+                                halfReps = input()
+                                if int(completeHalfSets) != 1:
+                                    try: #tests if input is splitable
+                                        splitReps = halfReps.split("-")
+                                        if len(splitReps) != int(completeHalfSets):
+                                            print("The input was not formatted correctly, try again")
+                                        else:
+                                            testInt = False
+                                    except:
+                                        print("The input was not formatted correctly, try again3")
+                                    sumReps = 0
+                                    count = 0
+                                    splitReps = halfReps.split("-")
+                                    for item in splitReps: #sums up the total extra reps done
+                                        sumReps += int(splitReps[count])                                
+                                        count += 1
+                                else:
+                                    sumReps = int(halfReps)
+                                    if sumReps >= currentReps:
+                                        print("The input was not formatted correctly, try again")
+                                    else:
+                                        testInt = False
+                                calculatedSets = sumReps // currentReps #calculates how many sets would have been done
+                                calculatedSets = calculatedSets * 0.85 #multiplier due to time spread
+                                calculatedSets = round(calculatedSets)
+                            currentSets = currentSets - calculatedSets
+                success = submitExercises.markOne(selected, currentSets, date)
+                return success
         else:
             return False
 
 
-def deleteExercise():
+def addNewExercise(date):
+    list = exerciseList.keyList().split("\n")[0:-1] #creates list of exercises
+    print("Type the name of the exercise you wish to add")
+    name = input().lower()
+
+    exist = False
+    for exercise in list: #checks if exercise being added already exists
+        if exercise == name:
+            exist = True
+    if exist: #if exists, returns function as fails
+        print("The exercise already exists")
+        return False
+    else:
+        print("Type the muscle group this exercise targets")
+        muscleGroup = input().lower()
+        
+        print("Perform the exercise and attempt the maximum in one go without overexertion")
+        testInt = True
+        while testInt:
+            print("Type the number of reps you were able to achieve (as whole number)")
+            original = input()
+            try: #tests if input is int
+                int(original)
+                testInt = False
+            except:
+                print("The input was not a whole number, try again")
+
+        testInt = True
+        while testInt:
+            print("Type the number of sets you wish to do each day (as whole number)")
+            sets = input()
+            try: #tests if input is int
+                int(sets)
+                testInt = False
+            except:
+                print("The input was not a whole number, try again")
+        success = addExercise.add(name, muscleGroup, original, sets, date)
+    return success
+
+
+def deleteExercise(): #transferred
     print("\nType the exercise you wish to delete:")
     print(exerciseList.keyList()) #prints list of exercises
     selected = input().lower()
@@ -87,13 +186,19 @@ def deleteExercise():
         if exercise.lower() == selected:
             exists = True
     if exists:
-        success = addExercise.deleteExercise(selected)
+        print("\nType the name of the exercise again to confirm: " + selected)
+        print("Else the action will cancel")
+        reply = input().lower()
+        if reply == selected:
+            success = addExercise.deleteExercise(selected)
+        else:
+            success = False
         return success
     else:
         return False
 
 
-def detailsExercise():
+def detailsExercise(): #transferred
     print("\nType the exercise you wish to view more details on:")
     print(exerciseList.keyList()) #prints list of exercises
     selected = input().lower()
@@ -175,7 +280,7 @@ while loop:
         elif choice.lower() == "a": #add exercises
             prompt = False
             loop = False
-            success = addExercise.add(getDate()) #runs through process of adding a new exercise
+            success = addNewExercise(getDate()) #runs through process of adding a new exercise
             if not success: #loops action menu if fails
                 print("EditError: Your exercise could not be added")
                 askAgain()
