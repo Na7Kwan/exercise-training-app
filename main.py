@@ -231,6 +231,7 @@ while True:
         event = "close"
     if event == "submitSets": #done
         allInts = True
+        values.pop("-KEY-")
         for exercise in values:
             try:
                 int(values[exercise])
