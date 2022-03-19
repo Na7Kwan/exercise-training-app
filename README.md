@@ -36,5 +36,6 @@ v3.0.1 - Minor bug fixes
 ## Planned:
 - proper except catches  
 - exercise rotation based on day of the week  
+- easier to use .exe  
 ## Notes:
 - Continue to add more settings options  
