@@ -4,7 +4,7 @@ import settings;
 
 
 def evaluateExercise(oldGoal, entry):
-    difficulty = settings.readSettings()[difficulty]
+    difficulty = settings.readSettings()["difficulty"]
     if difficulty == "normal":
         raiseMultiplier = 1.2
         lowerMultiplier = 0.9
