@@ -13,6 +13,7 @@ Current functions of the app are:
 - Raises target if the exercise has been completed consistently  
   
 Customisable Options:  
+- Theme  
 - Count half sets  
 - Difficulty  
 ## Changelog:
@@ -37,5 +38,8 @@ v3.0.1 - Minor bug fixes
 - proper except catches  
 - exercise rotation based on day of the week  
 - easier to use .exe  
+- select exercises to not auto increase / decrease  
+- fix completion record colouring  
 ## Notes:
+- Windows OS .bat script only supports up to v3.0.1  
 - Continue to add more settings options  
