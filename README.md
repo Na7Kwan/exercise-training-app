@@ -16,6 +16,7 @@ Customisable Options:
 - Theme  
 - Count half sets  
 - Difficulty  
+- Data saving location
 ## Download Latest Release:
 For Windows OS: [Download](https://github.com/Na7Kwan/exercise-training-app/releases/latest)
 ## Changelog:
@@ -38,11 +39,11 @@ v3.0.0 - Added GUI, added .exe file for Windows
 v3.0.1 - Minor bug fixes  
 v3.0.2 - Added groundwork for custom data save location, minor bug fixes  
 v3.0.3 - Added data import and custom data save location  
-v3.0.4 - Minor bug fixes
+v3.0.4 - Minor bug fixes  
+v3.0.5 - Major bug fixes
 ## Planned:
 - proper except catches  
 - exercise rotation based on day of the week  
-- easier to use .exe  
 - select exercises to not auto increase / decrease  
 - fix completion record colouring  
 - images on README  

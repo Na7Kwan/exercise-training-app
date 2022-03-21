@@ -2,9 +2,13 @@ import dataLocation;
 
 
 def firstTime(date): #configures daily.txt first time opening
-    file = open(dataLocation.daily(), "a")
-    file.write(str(date) + " - 0 - 0 - " + str(date)) #today date, if reset, if complete, start date
-    file.close()
+    try:
+        file = open(dataLocation.daily(), "r")
+        file.close()
+    except:
+        file = open(dataLocation.daily(), "a")
+        file.write(str(date) + " - 0 - 0 - " + str(date)) #today date, if reset, if complete, start date
+        file.close()
     return True
 
 

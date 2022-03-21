@@ -6,11 +6,11 @@ def toVisual(fL): #builds heatmap
     buildRecord = []
     for record in fL:
         if record == "Y":
-            buildRecord.append("🟩")
+            buildRecord.append("🟩Y")
         elif record == "H":
-            buildRecord.append("🟨")
+            buildRecord.append("🟨H")
         else:
-            buildRecord.append("🟥")
+            buildRecord.append("🟥N")
     return buildRecord
 
 

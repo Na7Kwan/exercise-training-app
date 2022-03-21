@@ -121,7 +121,7 @@ def main():
              [buttonQuit]
              ]
 
-    return sg.Window("Exercise Training App", layout, size=(450,800), finalize=True)
+    return sg.Window("Exercise Training App", layout, size=(450,800), resizable=True, finalize=True)
 
 
 def submit():
@@ -142,7 +142,7 @@ def submit():
         row = [sg.Text(exercise, font=default, size=(40,1)), sg.InputText("0", font=default, size=(4,1), key=exercise)]
         layout.insert(1, row)
     
-    return sg.Window("Submit Today's Sets", layout, size=(450,800), finalize=True)
+    return sg.Window("Submit Today's Sets", layout, size=(450,800), resizable=True, finalize=True)
 
 
 def add():
@@ -152,15 +152,15 @@ def add():
              [sg.InputText(font=default, size=(21,1), key="-NAME-")],
              [sg.Text("Type the muscle group this exercise targets:", font=default)],
              [sg.InputText(font=default, size=(21,1), key="-MUSCLE-")],
-             [sg.Text("Perform the exercise and attempt the maximum in one go without overexertion", font=default)],
-             [sg.Text("Type the number of reps you were able to achieve (as whole number):", font=default)],
+             [sg.Text("Perform the exercise and attempt the maximum in\none go without overexertion", font=default)],
+             [sg.Text("Type the number of reps you were able to achieve (as\nwhole number):", font=default)],
              [sg.InputText(font=default, size=(4,1), key="-REPS-")],
-             [sg.Text("Type the number of sets you wish to do each day (as whole number):", font=default)],
+             [sg.Text("Type the number of sets you wish to do each day (as\nwhole number):", font=default)],
              [sg.InputText(font=default, size=(4,1), key="-SETS-")],
              [sg.Submit(font=default, key="addSubmit"), sg.Button("Close", font=default, key="close")]
              ]
     
-    return sg.Window("Add Exercise", layout, size=(450,800), finalize=True)
+    return sg.Window("Add Exercise", layout, size=(450,800), resizable=True, finalize=True)
 
 
 def more():
@@ -177,13 +177,14 @@ def more():
              [sg.Button("Close", font=default, key="close")]
              ]
     
-    return sg.Window("More Exercise Details", layout, size=(450,800), finalize=True)
+    return sg.Window("More Exercise Details", layout, size=(450,800), resizable=True, finalize=True)
 
 
 def edit():
     list = exerciseList.keyList().split("\n")[0:-1] #creates list of all exercises
     layout = [
              [sg.Text("Edit Menu:", font=heading1)],
+             [sg.Text("For advanced users only", font=default)],
              [sg.Text("Choose the name of the exercise you wish to edit", font=default)],
              [sg.Combo(list, font=default, size=(20,1), key="-KEY-")],
              [sg.Text("Type the value you wish to edit", font=default)],
@@ -193,7 +194,7 @@ def edit():
              [sg.Submit(font=default, key="editSubmit"), sg.Button("Close", font=default, key="close")]
              ]
     
-    return sg.Window("Edit Exercise", layout, size=(450,800), finalize=True)
+    return sg.Window("Edit Exercise", layout, size=(450,800), resizable=True, finalize=True)
 
 
 def delete():
@@ -207,7 +208,7 @@ def delete():
              [sg.Submit(font=default, key="deleteSubmit"), sg.Button("Close", font=default, key="close")]
              ]
     
-    return sg.Window("Delete Exercise", layout, size=(450,800), finalize=True)
+    return sg.Window("Delete Exercise", layout, size=(450,800), resizable=True, finalize=True)
 
 
 def options():
@@ -223,7 +224,7 @@ def options():
              [sg.Submit("Apply Changes", font=default, key="optionsSubmit"), sg.Button("Close", font=default, key="close")]
              ]
     
-    return sg.Window("Options", layout, size=(450,800), finalize=True)
+    return sg.Window("Options", layout, size=(450,800), resizable=True, finalize=True)
 
 
 def location():
@@ -236,7 +237,7 @@ def location():
              [sg.Button("Close", font=default, key="close")]
              ]
 
-    return sg.Window("Data Storage Location", layout, size=(450,800), finalize=True)
+    return sg.Window("Data Storage Location", layout, size=(450,800), resizable=True, finalize=True)
 
 
 window1, window2 = main(), None
@@ -427,5 +428,5 @@ while True:
         window1.TKroot.focus_set()
         window.close()
         window2 = None
-
+    
 window.close()

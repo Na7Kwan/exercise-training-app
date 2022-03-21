@@ -173,13 +173,14 @@ def checkComplete(): #checks if record is marked complete if all sets are done
             exercises = ast.literal_eval(exercisesStr)
         except:
             exercises = {}
-        allDone = True
-        for entry in exercises:
-            if int(exercises[entry][1]) != 0:
-                allDone = False
-        if allDone: #if all exercises are done, mark as done in daily.txt and insert Y to record
-            success = daily.dailyMarkComplete()
-            completionRecord.insert("Y")
+        if exercises:
+            allDone = True
+            for entry in exercises:
+                if int(exercises[entry][1]) != 0:
+                    allDone = False
+            if allDone: #if all exercises are done, mark as done in daily.txt and insert Y to record
+                success = daily.dailyMarkComplete()
+                completionRecord.insert("Y")
         return success
     else:
         return success
