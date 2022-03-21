@@ -16,6 +16,8 @@ Customisable Options:
 - Theme  
 - Count half sets  
 - Difficulty  
+## Download Latest Release:
+For Windows OS: [Download](https://github.com/Na7Kwan/exercise-training-app/releases/latest)
 ## Changelog:
 v1.0.0 - Initial push of app  
 v1.0.1 - Added .txt file setups  

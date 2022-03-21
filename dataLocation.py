@@ -31,7 +31,7 @@ def setLocation(destination):
 
 def importLocation(folder):
     file = open("dataLocation.txt", "w")
-    file.write(folder + "\\data")
+    file.write(folder)
     file.close()
 
 
