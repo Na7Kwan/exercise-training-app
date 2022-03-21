@@ -1,22 +1,75 @@
-def setLocation():
-    pass
+import shutil;
+
+
+def createLocation():
+    try:
+        file = open("dataLocation.txt", "r")
+        file.close()
+    except:
+        file = open("dataLocation.txt", "a+")
+        file.write("data")
+        file.close()
+    return True
+
+
+def root():
+    file = open("dataLocation.txt", "r")
+    rootFolder = file.read()
+    file.close()
+    return str(rootFolder)
+
+
+def setLocation(destination):
+    file = open("dataLocation.txt", "r")
+    source = str(file.read())
+    file.close()
+    shutil.move(source, destination)
+    file = open("dataLocation.txt", "w")
+    file.write(destination + "\\data")
+    file.close()
+
+
+def importLocation(folder):
+    file = open("dataLocation.txt", "w")
+    file.write(folder + "\\data")
+    file.close()
 
 
 def completionRecord():
-    return "data\\completionRecord.txt"
+    file = open("dataLocation.txt", "r")
+    rootFolder = file.read()
+    file.close()
+    location = str(rootFolder) + "\\completionRecord.txt"
+    return location
 
 
 def exerciseList():
-    return "data\\exerciseList.txt"
+    file = open("dataLocation.txt", "r")
+    rootFolder = file.read()
+    file.close()
+    location = str(rootFolder) + "\\exerciseList.txt"
+    return location
 
 
 def settings():
-    return "data\\settings.txt"
+    file = open("dataLocation.txt", "r")
+    rootFolder = file.read()
+    file.close()
+    location = str(rootFolder) + "\\settings.txt"
+    return location
 
 
 def daily():
-    return "data\\daily.txt"
+    file = open("dataLocation.txt", "r")
+    rootFolder = file.read()
+    file.close()
+    location = str(rootFolder) + "\\daily.txt"
+    return location
 
 
 def records(exercise):
-    return "data\\records\\" + exercise + "_record.txt"
+    file = open("dataLocation.txt", "r")
+    rootFolder = file.read()
+    file.close()
+    location = str(rootFolder) + "\\records\\" + exercise + "_record.txt"
+    return location

@@ -34,7 +34,8 @@ v2.0.6 - Fixed unified prompts, major changes to lay groundwork for GUI
 v2.0.7 - Added settings page with basics options  
 v3.0.0 - Added GUI, added .exe file for Windows  
 v3.0.1 - Minor bug fixes  
-v3.0.2 - Added groundwork for custom file save location, minor bug fixes  
+v3.0.2 - Added groundwork for custom data save location, minor bug fixes  
+v3.0.3 - Added data import and custom data save location  
 ## Planned:
 - proper except catches  
 - exercise rotation based on day of the week  

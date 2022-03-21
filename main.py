@@ -30,8 +30,13 @@ def getDate(): #gets the current date in string format
     return(todayDate)
 
 
-if not os.path.exists("records"):
-    os.makedirs("records")
+if not os.path.exists("data"):
+    os.makedirs("data")
+
+if not os.path.exists("data\\records"):
+    os.makedirs("data\\records")
+
+dataLocation.createLocation()
 
 try:
     file = open(dataLocation.completionRecord(), "r")
@@ -100,7 +105,8 @@ def main():
     buttonEdit = sg.Button("Edit Exercises", font=default, size=(22,2))
     buttonDelete = sg.Button("Delete Exercise", font=default, size=(22,2))
     buttonOptions = sg.Button("Options", font=default, size=(22,2))
-    buttonQuit = sg.Button("Quit", font=default, size=(22,2))
+    buttonLocation = sg.Button("Data Storage Location", font=default, size=(22,2))
+    buttonQuit = sg.Button("Quit", font=default, size=(46,2))
 
     layout = [
              [sg.Text(welcome, font=heading1)],
@@ -112,7 +118,8 @@ def main():
              [buttonSubmit],
              [buttonAdd, buttonMore],
              [buttonEdit, buttonDelete],
-             [buttonOptions, buttonQuit]
+             [buttonOptions, buttonLocation],
+             [buttonQuit]
              ]
 
     return sg.Window("Exercise Training App", layout, size=(450,800), finalize=True)
@@ -218,6 +225,19 @@ def options():
              ]
     
     return sg.Window("Options", layout, size=(450,800), finalize=True)
+
+
+def location():
+    rootFolder = dataLocation.root()
+
+    layout = [
+             [sg.Text("Data Storage Location:", font=heading1)],
+             [sg.InputText(rootFolder, size=(20,1), font=default, key="-FOLDER-"), sg.FolderBrowse(font=default)], 
+             [sg.Submit("Save Location", font=default, key="locationSubmit"), sg.Submit("Import from Location", font=default, key="importSubmit")], 
+             [sg.Button("Close", font=default, key="close")]
+             ]
+
+    return sg.Window("Data Storage Location", layout, size=(450,800), finalize=True)
 
 
 window1, window2 = main(), None
@@ -380,6 +400,17 @@ while True:
         halfSetsOption = option["halfSets"]
         difficultyOption = option["difficulty"]
         event = "close"
+
+    if event == "Data Storage Location":
+        window2 = location()
+        window2.TKroot.focus_set()
+        window.close()
+        window1 = None
+    if event == "locationSubmit":
+        dataLocation.setLocation(values["-FOLDER-"])
+    if event == "importSubmit": #done
+        dataLocation.importLocation(values["-FOLDER-"])
+        sg.popup("Restart the app to ensure all data is imported correctly")
 
     if event == "Quit": #done
         break
