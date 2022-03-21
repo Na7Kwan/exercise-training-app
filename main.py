@@ -29,14 +29,13 @@ def getDate(): #gets the current date in string format
     todayDate = todayDateList[0] + "/" + todayDateList[1] + "/" + todayDateList[2] #formats the date for humans
     return(todayDate)
 
+dataLocation.createLocation()
 
 if not os.path.exists(dataLocation.root()):
     os.makedirs(dataLocation.root())
 
 if not os.path.exists(dataLocation.root() + "\\records"):
     os.makedirs(dataLocation.root() + "\\records")
-
-dataLocation.createLocation()
 
 try:
     file = open(dataLocation.completionRecord(), "r")
