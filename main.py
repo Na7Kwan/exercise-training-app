@@ -137,8 +137,8 @@ def submit():
              [sg.Button("Close", font=default, key="close")]
              ]
     for exercise in list:
-        if len(exercise) > 12:
-            exercise = exercise[0:9] + "..."
+        if len(exercise) > 20:
+            exercise = exercise[0:17] + "..."
         row = [sg.Text(exercise, font=default, size=(40,1)), sg.InputText("0", font=default, size=(4,1), key=exercise)]
         layout.insert(1, row)
     

@@ -24,14 +24,14 @@ def getList(key = False): #fetches reps and sets remaining per exercise each day
                 name = " ".join(nameList)
             except:
                 name = entry.capitalize()
-            if len(entry) < 12: #if exercise name less than 12 char, fill to 12
+            if len(entry) < 20: #if exercise name less than 20 char, fill to 20
                 response = response + name + ": "
-                spaces = 12 - len(entry)
+                spaces = 20 - len(entry)
                 response = response + " "*spaces
-            elif len(entry) == 12: #if exercise name is 12, do nothing
+            elif len(entry) == 20: #if exercise name is 20, do nothing
                 response = response + name + ": "
-            else: #if exercise name more than 12 char, replace with ...
-                response = response + name[0:9] + "...: "
+            else: #if exercise name more than 20 char, replace with ...
+                response = response + name[0:17] + "...: "
             response = response + str(exercises[entry][0]) + " rep(s) "
             response = response + str(exercises[entry][1]) + " set(s) left today\n"
         return response

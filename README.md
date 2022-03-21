@@ -47,6 +47,7 @@ v3.0.5 - Major bug fixes
 - select exercises to not auto increase / decrease  
 - fix completion record colouring  
 - images on README  
+- optimise .exe file size
 ## Notes:
 - Windows OS .bat script only supports up to v3.0.1  
 - Continue to add more settings options  
