@@ -1,6 +1,7 @@
 import ast;
 import datetime;
 import settings;
+import dataLocation;
 
 
 def evaluateExercise(oldGoal, entry):
@@ -22,7 +23,7 @@ def evaluateExercise(oldGoal, entry):
     todayDateStr = todayDateTime.split()[0]
     todayDateList = todayDateStr.split("-")
     todayDate = datetime.date(int(todayDateList[0]), int(todayDateList[1]), int(todayDateList[2]))
-    file = open("records\\" + entry + "_record.txt", "r") #opens record of the exercise
+    file = open(dataLocation.records(entry), "r") #opens record of the exercise
     recordStr = file.read()
     file.close()
     try: #turns string into dict if not empty
@@ -45,7 +46,7 @@ def evaluateExercise(oldGoal, entry):
             if str(record[date][1]) != str(record[lastThree[0]][1]):
                 recentChange = True
         if recordHalf and not recentChange:
-            goal[0] = int(goal[0])*lowerMultipler
+            goal[0] = int(goal[0])*lowerMultiplier
             goal[0] = str(int(goal[0]))
     except:
         pass
@@ -76,7 +77,8 @@ def evaluateExercise(oldGoal, entry):
         recordDone = True
         recentChange = False
         for date in lastTen:
-            if record[date][0] != record[date][1]:
+            details = record[date][1].split("*")
+            if record[date][0] != record[date][1] and int(details[1]) == 1:
                 recordDone = False
             if str(record[date][1]) != str(record[lastTen[0]][1]):
                 recentChange = True

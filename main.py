@@ -6,6 +6,7 @@ import submitExercises;
 import daily;
 import os;
 import settings;
+import dataLocation;
 import PySimpleGUI as sg;
 
 
@@ -33,23 +34,23 @@ if not os.path.exists("records"):
     os.makedirs("records")
 
 try:
-    file = open("completionRecord.txt", "r")
+    file = open(dataLocation.completionRecord(), "r")
     file.close()
-    file = open("exerciseList.txt", "r")
+    file = open(dataLocation.exerciseList(), "r")
     file.close()
-    file = open("settings.txt", "r")
+    file = open(dataLocation.settings(), "r")
     file.close()
 except:
-    file = open("completionRecord.txt", "a+")
+    file = open(dataLocation.completionRecord(), "a+")
     file.close()
-    file = open("exerciseList.txt", "a+")
+    file = open(dataLocation.exerciseList(), "a+")
     file.close()
-    file = open("settings.txt", "a+")
+    file = open(dataLocation.settings(), "a+")
     file.close()
     settings.setupSettings()
 
 try:
-    file = open("daily.txt", "r")
+    file = open(dataLocation.daily(), "r")
     infoString = file.read()
     dateStart = infoString.split(" - ")[3]
     file.close()
@@ -209,7 +210,9 @@ def options():
              [sg.Text("Appearances", font=heading2)],
              [sg.Text("Theme", font=default)],
              [sg.Combo(["Dark", "Light"], default_value=themeOption.capitalize(), font=default, size=(20,1), key="-THEME-")],
+             [sg.Text("Half Sets", font=default)],
              [sg.Combo(["On", "Off"], default_value=halfSetsOption.capitalize(), font=default, size=(20,1), key="-HALFSETS-")],
+             [sg.Text("Difficulty", font=default)],
              [sg.Combo(["Hard", "Normal", "Easy"], default_value=difficultyOption.capitalize(), font=default, size=(20,1), key="-DIFFICULTY-")],
              [sg.Submit("Apply Changes", font=default, key="optionsSubmit"), sg.Button("Close", font=default, key="close")]
              ]

@@ -1,4 +1,5 @@
 import exerciseList;
+import dataLocation;
 
 
 def toVisual(fL): #builds heatmap
@@ -14,14 +15,14 @@ def toVisual(fL): #builds heatmap
 
 
 def insert(letter): #allows for letters to be inserted into the completion record
-    file = open("completionRecord.txt", "a")
+    file = open(dataLocation.completionRecord(), "a")
     file.write(letter + ", ")
     file.close()
     return True
 
 
 def get(): #fetches completion record of last 7 days
-    file = open("completionRecord.txt", "r")
+    file = open(dataLocation.completionRecord(), "r")
     fileContent = file.read()
     fileList = fileContent.split(", ")
     file.close()
@@ -35,7 +36,7 @@ def get(): #fetches completion record of last 7 days
 
 
 def fill(days): #fills in skipped days when the app was not opened
-    file = open("completionRecord.txt", "r+")
+    file = open(dataLocation.completionRecord(), "r+")
     fileContent = file.read()
     fileList = fileContent.split(", ")[0:-1]
     if len(fileList) < days: #checks if number of records on completionRecord.txt is less than days past

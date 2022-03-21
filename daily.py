@@ -1,12 +1,15 @@
+import dataLocation;
+
+
 def firstTime(date): #configures daily.txt first time opening
-    file = open("daily.txt", "a")
+    file = open(dataLocation.daily(), "a")
     file.write(str(date) + " - 0 - 0 - " + str(date)) #today date, if reset, if complete, start date
     file.close()
     return True
 
 
 def checkDailyFirst(date): #checks if first time opening that day and resets other params
-    file = open("daily.txt", "r")
+    file = open(dataLocation.daily(), "r")
     contents = file.read()
     file.close()
     contentList = contents.split(" - ")
@@ -17,14 +20,14 @@ def checkDailyFirst(date): #checks if first time opening that day and resets oth
         contentList[1] = "0" #sets daily reset to false
         contentList[2] = "0" #sets daily complete to false
         contents = " - ".join(contentList)
-        file = open("daily.txt", "w")
+        file = open(dataLocation.daily(), "w")
         file.write(str(contents))
         file.close()
         return True
 
 
 def checkDailyReset(): #checks if today's reps have been reset
-    file = open("daily.txt", "r")
+    file = open(dataLocation.daily(), "r")
     contents = file.read()
     file.close()
     contentList = contents.split(" - ")
@@ -35,7 +38,7 @@ def checkDailyReset(): #checks if today's reps have been reset
 
 
 def checkDailyComplete(): #checks if today's reps have been completed
-    file = open("daily.txt", "r")
+    file = open(dataLocation.daily(), "r")
     contents = file.read()
     file.close()
     contentList = contents.split(" - ")
@@ -46,26 +49,26 @@ def checkDailyComplete(): #checks if today's reps have been completed
 
 
 def dailyMarkComplete(): #marks that today's exercises are done
-    file = open("daily.txt", "r")
+    file = open(dataLocation.daily(), "r")
     contents = file.read()
     file.close()
     contentList = contents.split(" - ")
     contentList[2] = "1"
     contents = " - ".join(contentList)
-    file = open("daily.txt", "w")
+    file = open(dataLocation.daily(), "w")
     file.write(str(contents))
     file.close()
     return True
 
 
 def dailyMarkReset(): #marks that today's reps and sets have been reset
-    file = open("daily.txt", "r")
+    file = open(dataLocation.daily(), "r")
     contents = file.read()
     file.close()
     contentList = contents.split(" - ")
     contentList[1] = "1"
     contents = " - ".join(contentList)
-    file = open("daily.txt", "w")
+    file = open(dataLocation.daily(), "w")
     file.write(str(contents))
     file.close()
     return True

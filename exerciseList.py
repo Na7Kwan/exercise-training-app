@@ -2,10 +2,11 @@ import ast;
 import daily;
 import exerciseTarget;
 import completionRecord;
+import dataLocation;
 
 
 def getList(key = False): #fetches reps and sets remaining per exercise each day
-    file = open("exerciseList.txt", "r")
+    file = open(dataLocation.exerciseList(), "r")
     exercisesStr = file.read()
     file.close()
     try: #turns string into dict if not empty
@@ -40,7 +41,7 @@ def getList(key = False): #fetches reps and sets remaining per exercise each day
 
 
 def keyList(): #returns a list of exercise names
-    file = open("exerciseList.txt", "r")
+    file = open(dataLocation.exerciseList(), "r")
     exercisesStr = file.read()
     file.close()
     try: #turns string into dict if not empty
@@ -62,7 +63,7 @@ def keyList(): #returns a list of exercise names
 
 
 def editItem(key, value, edit): #allows for editing of the exerciseList.txt from console
-    file = open("exerciseList.txt", "r")
+    file = open(dataLocation.exerciseList(), "r")
     exercisesStr = file.read()
     file.close()
     try: #turns string into dict if not empty
@@ -74,14 +75,14 @@ def editItem(key, value, edit): #allows for editing of the exerciseList.txt from
     except:
         edit = edit
     exercises[key][int(value)] = edit
-    file = open("exerciseList.txt", "w")
+    file = open(dataLocation.exerciseList(), "w")
     file.write(str(exercises))
     file.close()
     return True
 
 
 def completeItemAll(): #changes all remaining reps and sets for each exercise to 0
-    file = open("exerciseList.txt", "r")
+    file = open(dataLocation.exerciseList(), "r")
     exercisesStr = file.read()
     file.close()
     try: #turns string into dict if not empty
@@ -91,14 +92,14 @@ def completeItemAll(): #changes all remaining reps and sets for each exercise to
     for entry in exercises: #changes all exercise remaining reps and sets to 0
         exercises[entry][0] = 0
         exercises[entry][1] = 0
-    file = open("exerciseList.txt", "w")
+    file = open(dataLocation.exerciseList(), "w")
     file.write(str(exercises))
     file.close()
     return True
 
 
 def addTo(entryKey, entryValue): #adds a formated exercise to the dictionary
-    file = open("exerciseList.txt", "r")
+    file = open(dataLocation.exerciseList(), "r")
     exercisesStr = file.read()
     file.close()
     try: #turns string into dict if not empty
@@ -106,14 +107,14 @@ def addTo(entryKey, entryValue): #adds a formated exercise to the dictionary
     except:
         exercises = {}
     exercises[entryKey] = entryValue #adds the exercise to dict
-    file = open("exerciseList.txt", "w")
+    file = open(dataLocation.exerciseList(), "w")
     file.write(str(exercises))
     file.close()
     return True
 
 
 def testRecords(date): #checks if each exercise has its record sheet and creates a new one if there isnt
-    file = open("exerciseList.txt", "r")
+    file = open(dataLocation.exerciseList(), "r")
     exercisesStr = file.read()
     file.close()
     try: #turns string into dict if not empty
@@ -123,14 +124,14 @@ def testRecords(date): #checks if each exercise has its record sheet and creates
     success = True
     for entry in exercises:
         try: #tries opening record file for each exercise
-            file = open("records\\" + entry + "_record.txt", "r")
+            file = open(dataLocation.records(entry), "r")
             file.close()
         except: #if it fails, create a new empty file
             success = False #report that at least one file was lost
             exerciseRecord = {}
             insert = str(exercises[entry][0]) + "*" + str(exercises[entry][1])
             exerciseRecord[date] = insert
-            file = open("records\\" + entry + "_record.txt", "a+")
+            file = open(dataLocation.records(entry), "a+")
             file.write(str(exerciseRecord))
             file.close()
     return success
@@ -140,7 +141,7 @@ def resetCheck(): #resets the daily goal
     if daily.checkDailyReset():
         return False
     else:
-        file = open("exerciseList.txt", "r")
+        file = open(dataLocation.exerciseList(), "r")
         exercisesStr = file.read()
         file.close()
         try: #turns string into dict if not empty
@@ -155,7 +156,7 @@ def resetCheck(): #resets the daily goal
             exercises[entry][0] = reps
             exercises[entry][1] = sets
             exercises[entry][4] = newGoal
-        file = open("exerciseList.txt", "w")
+        file = open(dataLocation.exerciseList(), "w")
         file.write(str(exercises))
         file.close()
         daily.dailyMarkReset() #mark that the reset has occured this day
@@ -165,7 +166,7 @@ def resetCheck(): #resets the daily goal
 def checkComplete(): #checks if record is marked complete if all sets are done
     success = False
     if not daily.checkDailyComplete(): #if not already marked done
-        file = open("exerciseList.txt", "r")
+        file = open(dataLocation.exerciseList(), "r")
         exercisesStr = file.read()
         file.close()
         try: #turns string into dict if not empty
@@ -185,7 +186,7 @@ def checkComplete(): #checks if record is marked complete if all sets are done
 
 
 def recordUpdate(key, original, completed, date): #updates exercise after every submission in exercise records
-    file = open("records\\" + key + "_record.txt", "r") #open record of specific exercise
+    file = open(dataLocation.records(key), "r") #open record of specific exercise
     exerciseRecord = file.read()
     file.close()
     try: #turns string into dict if not empty
@@ -200,14 +201,14 @@ def recordUpdate(key, original, completed, date): #updates exercise after every 
         completed = int(completed)
     completed = str(temp[0]) + "*" + str(completed)
     record[date] = [completed, original] #updates new entry with date, and completed and original goal
-    file = open("records\\" + key + "_record.txt", "w")
+    file = open(dataLocation.records(key), "w")
     file.write(str(record))
     file.close()
     return True
 
 
 def deleteItem(key): #allows for deleting of an exercise from exerciseList.txt from console
-    file = open("exerciseList.txt", "r")
+    file = open(dataLocation.exerciseList(), "r")
     exercisesStr = file.read()
     file.close()
     try: #turns string into dict if not empty
@@ -215,14 +216,14 @@ def deleteItem(key): #allows for deleting of an exercise from exerciseList.txt f
     except:
         exercises = {}
     exercises.pop(key, None)
-    file = open("exerciseList.txt", "w")
+    file = open(dataLocation.exerciseList(), "w")
     file.write(str(exercises))
     file.close()
     return True
 
 
 def checkHalf():
-    file = open("exerciseList.txt", "r")
+    file = open(dataLocation.exerciseList(), "r")
     exercisesStr = file.read()
     file.close()
     try: #turns string into dict if not empty
@@ -241,3 +242,35 @@ def checkHalf():
         return True
     else:
         return False
+
+
+def checkFormatting():
+    file = open(dataLocation.exerciseList(), "r")
+    exercisesStr = file.read()
+    file.close()
+    try: #turns string into dict if not empty
+        exercises = ast.literal_eval(exercisesStr)
+    except:
+        exercises = {}
+    for key in exercises:
+        if len(exercises[key]) != 5:
+            replaceValues = []
+            try:
+                int(exercises[key][0])
+                int(exercises[key][1])
+                replaceValues.append(exercises[key][0])
+                replaceValues.append(exercises[key][1])
+                exercises[key].pop(0)
+                exercises[key].pop(0)
+            except:
+                replaceValues.append("0")
+                replaceValues.append("0")
+                try:
+                    int(exercises[key][0])
+                    exercises[key].pop(0)
+                except:
+                    pass
+            print(replaceValues)
+
+            
+            

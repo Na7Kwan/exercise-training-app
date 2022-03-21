@@ -1,5 +1,6 @@
 import exerciseList;
 import os;
+import dataLocation;
 
 
 def add(name, muscleGroup, original, sets, date): #runs through process of adding exercises
@@ -18,15 +19,15 @@ def add(name, muscleGroup, original, sets, date): #runs through process of addin
     addRecord = str(original) + "*" +str(1)
     recordList = [addRecord, formatOriginal]
     exerciseRecord[date] = recordList
-    file = open("records\\" + name + "_record.txt", "a+") #creates new file for exercise record
+    file = open(dataLocation.records(name), "a+") #creates new file for exercise record
     file.write(str(exerciseRecord))
     file.close()
     return success
 
 
 def deleteExercise(key):
-    if os.path.exists("records\\" + key + "_record.txt"):
-        os.remove("records\\" + key + "_record.txt")
+    if os.path.exists(dataLocation.records(key)):
+        os.remove(dataLocation.records(key))
         success = exerciseList.deleteItem(key)
     else:
         success = False

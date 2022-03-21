@@ -1,4 +1,5 @@
 import ast;
+import dataLocation;
 
 
 def setupSettings(): #sets up settings.txt
@@ -7,14 +8,14 @@ def setupSettings(): #sets up settings.txt
         "halfSets" : "on",
         "difficulty" : "normal"
     }
-    file = open("settings.txt", "w")
+    file = open(dataLocation.settings(), "w")
     file.write(str(settings))
     file.close()
     return True
 
 
 def readSettings(): #reads and returns all settings as dictionary
-    file = open("settings.txt", "r")
+    file = open(dataLocation.settings(), "r")
     settingsStr = file.read()
     file.close()
     try: #turns string into dict if not empty
@@ -25,7 +26,7 @@ def readSettings(): #reads and returns all settings as dictionary
 
 
 def changeSetting(setting, value): #changes the value of one setting
-    file = open("settings.txt", "r")
+    file = open(dataLocation.settings(), "r")
     settingsStr = file.read()
     file.close()
     try: #turns string into dict if not empty
@@ -35,7 +36,7 @@ def changeSetting(setting, value): #changes the value of one setting
     try:
         str(settings[setting])
         settings[setting] = value
-        file = open("settings.txt", "w")
+        file = open(dataLocation.settings(), "w")
         file.write(str(settings))
         file.close()
         return True
