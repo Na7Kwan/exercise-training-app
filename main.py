@@ -30,11 +30,11 @@ def getDate(): #gets the current date in string format
     return(todayDate)
 
 
-if not os.path.exists("data"):
-    os.makedirs("data")
+if not os.path.exists(dataLocation.root()):
+    os.makedirs(dataLocation.root())
 
-if not os.path.exists("data\\records"):
-    os.makedirs("data\\records")
+if not os.path.exists(dataLocation.root() + "\\records"):
+    os.makedirs(dataLocation.root() + "\\records")
 
 dataLocation.createLocation()
 
@@ -401,16 +401,18 @@ while True:
         difficultyOption = option["difficulty"]
         event = "close"
 
-    if event == "Data Storage Location":
+    if event == "Data Storage Location": #done
         window2 = location()
         window2.TKroot.focus_set()
         window.close()
         window1 = None
     if event == "locationSubmit":
         dataLocation.setLocation(values["-FOLDER-"])
+        event = "close"
     if event == "importSubmit": #done
         dataLocation.importLocation(values["-FOLDER-"])
         sg.popup("Restart the app to ensure all data is imported correctly")
+        event = "close"
 
     if event == "Quit": #done
         break

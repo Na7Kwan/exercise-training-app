@@ -36,14 +36,13 @@ v3.0.0 - Added GUI, added .exe file for Windows
 v3.0.1 - Minor bug fixes  
 v3.0.2 - Added groundwork for custom data save location, minor bug fixes  
 v3.0.3 - Added data import and custom data save location  
+v3.0.4 - Minor bug fixes
 ## Planned:
 - proper except catches  
 - exercise rotation based on day of the week  
 - easier to use .exe  
 - select exercises to not auto increase / decrease  
 - fix completion record colouring  
-- import data / export data  
-- custom file save location  
 - images on README  
 ## Notes:
 - Windows OS .bat script only supports up to v3.0.1  
