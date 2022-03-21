@@ -3,20 +3,20 @@ def setLocation():
 
 
 def completionRecord():
-    return "completionRecord.txt"
+    return "data\\completionRecord.txt"
 
 
 def exerciseList():
-    return "exerciseList.txt"
+    return "data\\exerciseList.txt"
 
 
 def settings():
-    return "settings.txt"
+    return "data\\settings.txt"
 
 
 def daily():
-    return "daily.txt"
+    return "data\\daily.txt"
 
 
 def records(exercise):
-    return "records\\" + exercise + "_record.txt"
+    return "data\\records\\" + exercise + "_record.txt"

@@ -1,9 +1,2 @@
 /__pycache__
-/completionRecord.txt
-/daily.txt
-/exerciseList.txt
-settings.txt
-main.spec
-records
-dist
-build
+/data
