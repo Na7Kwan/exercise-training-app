@@ -1,5 +1,4 @@
 import shutil;
-import os;
 
 
 def createLocation():
@@ -34,8 +33,6 @@ def importLocation(folder):
     file = open("dataLocation.txt", "w")
     file.write(folder)
     file.close()
-    if os.path.exists("data"):
-        os.remove("data")
 
 
 def completionRecord():
