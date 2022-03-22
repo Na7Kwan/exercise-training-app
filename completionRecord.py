@@ -20,11 +20,11 @@ def toVisual2(fL): #builds new heatmap
     buildRecord = []
     for record in fL:
         if record == "Y":
-            buildRecord.append(sg.Image("resources/images/green-50x50.png"))
+            buildRecord.append(sg.Image("images/resources/green-50x50.png"))
         elif record == "H":
-            buildRecord.append(sg.Image("resources/images/orange-50x50.png"))
+            buildRecord.append(sg.Image("images/resources/orange-50x50.png"))
         else:
-            buildRecord.append(sg.Image("resources/images/red-50x50.png"))
+            buildRecord.append(sg.Image("images/resources/red-50x50.png"))
     return buildRecord
 
 
