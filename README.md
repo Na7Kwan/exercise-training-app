@@ -18,7 +18,10 @@ Customisable Options:
 - Difficulty  
 - Data saving location
 ## Download Latest Release:
-For Windows OS: [Download](https://github.com/Na7Kwan/exercise-training-app/releases/latest)
+For Windows OS: [Download](https://github.com/Na7Kwan/exercise-training-app/releases/latest)  
+## Screenshots:
+![Add Exercise Menu](images/add.png) ![Edit Exercise Menu](images/edit.png) ![Delete Exercise Menu](images/delete.png)  
+![View Exercise Details](images/exercise%20details.png) ![Data Location Menu](images/data.png) ![Options Menu](images/options.png)
 ## Changelog:
 v1.0.0 - Initial push of app  
 v1.0.1 - Added .txt file setups  
