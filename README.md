@@ -20,8 +20,8 @@ Customisable Options:
 ## Download Latest Release:
 For Windows OS: [Download](https://github.com/Na7Kwan/exercise-training-app/releases/latest)  
 ## Screenshots:
-![Add Exercise Menu](images/add-450x800.png) ![Edit Exercise Menu](images/edit.png) ![Delete Exercise Menu](images/delete.png)  
-![View Exercise Details](images/exercise%20details.png) ![Data Location Menu](images/data.png) ![Options Menu](images/options.png)
+![Add Exercise Menu](images/add-225x400.png) ![Edit Exercise Menu](images/edit-225x400.png) ![Delete Exercise Menu](images/delete-225x400.png)  
+![View Exercise Details](images/exercise%20details-225x400.png) ![Data Location Menu](images/data-225x400.png) ![Options Menu](images/options-225x400.png)
 ## Changelog:
 v1.0.0 - Initial push of app  
 v1.0.1 - Added .txt file setups  
