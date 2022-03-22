@@ -52,7 +52,7 @@ v3.0.7 - Fixed black and white completion record
 - exercise rotation based on day of the week  
 - select exercises to not auto increase / decrease  
 - images on README  
-- optimise .exe file size
+- optimise .exe file size and image packaging
 ## Notes:
 - Windows OS .bat script only supports up to v3.0.1  
 - Continue to add more settings options  
