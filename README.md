@@ -4,6 +4,7 @@ Readily available for use on Windows OS via .bat script.
 Readily available for use on Windows OS via .exe executable.  
   
 Current functions of the app are:  
+- Generates visual record of the last 7 days
 - Add exercises to track  
 - Delete exercises from being tracked  
 - Edit exercise details  
