@@ -1,5 +1,6 @@
 import exerciseList;
 import dataLocation;
+import PySimpleGUI as sg;
 
 
 def toVisual(fL): #builds heatmap
@@ -14,6 +15,19 @@ def toVisual(fL): #builds heatmap
     return buildRecord
 
 
+def toVisual2(fL): #builds new heatmap
+    #buildRecord = [sg.Image("images/red.png")]
+    buildRecord = []
+    for record in fL:
+        if record == "Y":
+            buildRecord.append(sg.Image("resources/images/green-50x50.png"))
+        elif record == "H":
+            buildRecord.append(sg.Image("resources/images/orange-50x50.png"))
+        else:
+            buildRecord.append(sg.Image("resources/images/red-50x50.png"))
+    return buildRecord
+
+
 def insert(letter): #allows for letters to be inserted into the completion record
     file = open(dataLocation.completionRecord(), "a")
     file.write(letter + ", ")
@@ -21,19 +35,24 @@ def insert(letter): #allows for letters to be inserted into the completion recor
     return True
 
 
-def get(): #fetches completion record of last 7 days
+def get(version = 1): #fetches completion record of last 7 days
     file = open(dataLocation.completionRecord(), "r")
     fileContent = file.read()
     fileList = fileContent.split(", ")
     file.close()
     visualRecord = []
-    if len(fileList) <= 8: #if more than 7 days are past, build only last 7 entries
-        visualRecord = toVisual(fileList[0:-1])
-    else:
-        visualRecord = toVisual(fileList[-8:-1]) #if not, build all entries
-
-    return(" ".join(visualRecord))
-
+    if version == 1:
+        if len(fileList) <= 8: #if more than 7 days are past, build only last 7 entries
+            visualRecord = toVisual(fileList[0:-1])
+        else:
+            visualRecord = toVisual(fileList[-8:-1]) #if not, build all entries
+        return(" ".join(visualRecord))
+    elif version == 2:
+        if len(fileList) <= 8: #if more than 7 days are past, build only last 7 entries
+            visualRecord = toVisual2(fileList[0:-1])
+        else:
+            visualRecord = toVisual2(fileList[-8:-1]) #if not, build all entries
+        return visualRecord
 
 def fill(days): #fills in skipped days when the app was not opened
     file = open(dataLocation.completionRecord(), "r+")

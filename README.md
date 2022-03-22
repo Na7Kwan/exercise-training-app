@@ -44,12 +44,12 @@ v3.0.2 - Added groundwork for custom data save location, minor bug fixes
 v3.0.3 - Added data import and custom data save location  
 v3.0.4 - Minor bug fixes  
 v3.0.5 - Major bug fixes  
-v3.0.6 - Added screenshots to README
+v3.0.6 - Added screenshots to README  
+v3.0.7 - Fixed black and white completion record
 ## Planned:
 - proper except catches  
 - exercise rotation based on day of the week  
 - select exercises to not auto increase / decrease  
-- fix completion record colouring  
 - images on README  
 - optimise .exe file size
 ## Notes:
