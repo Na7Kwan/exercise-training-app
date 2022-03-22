@@ -20,7 +20,7 @@ Customisable Options:
 ## Download Latest Release:
 For Windows OS: [Download](https://github.com/Na7Kwan/exercise-training-app/releases/latest)  
 ## Screenshots:
-![Add Exercise Menu](images/add.png) ![Edit Exercise Menu](images/edit.png) ![Delete Exercise Menu](images/delete.png)  
+![Add Exercise Menu](images/add.png | width=200px) ![Edit Exercise Menu](images/edit.png) ![Delete Exercise Menu](images/delete.png)  
 ![View Exercise Details](images/exercise%20details.png) ![Data Location Menu](images/data.png) ![Options Menu](images/options.png)
 ## Changelog:
 v1.0.0 - Initial push of app  
@@ -43,7 +43,8 @@ v3.0.1 - Minor bug fixes
 v3.0.2 - Added groundwork for custom data save location, minor bug fixes  
 v3.0.3 - Added data import and custom data save location  
 v3.0.4 - Minor bug fixes  
-v3.0.5 - Major bug fixes
+v3.0.5 - Major bug fixes  
+v3.0.6 - Added screenshots to README
 ## Planned:
 - proper except catches  
 - exercise rotation based on day of the week  
