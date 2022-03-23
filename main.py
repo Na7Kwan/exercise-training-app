@@ -82,10 +82,17 @@ else:
 exerciseList.resetCheck() #checks if exerciseList has been reset
 exerciseList.checkComplete() #checks if all activities are complete
 
-option = settings.readSettings()
-themeOption = option["theme"]
-halfSetsOption = option["halfSets"]
-difficultyOption = option["difficulty"]
+testOptions = True
+while testOptions:
+    option = settings.readSettings()
+    try:
+        themeOption = option["theme"]
+        halfSetsOption = option["halfSets"]
+        difficultyOption = option["difficulty"]
+        autoAdjustOption = option["autoAdjust"]
+        testOptions = False
+    except:
+        settings.checkSettings()
 
 if themeOption == "light":
     sg.theme("default1")
@@ -174,6 +181,7 @@ def more():
              [sg.Text("", font=default, key="-LINE2-")],
              [sg.Text("", font=default, key="-LINE3-")],
              [sg.Text("", font=default, key="-LINE4-")],
+             [sg.Text("", font=default, key="-LINE5-")],
              [sg.Button("Close", font=default, key="close")]
              ]
     
@@ -212,15 +220,29 @@ def delete():
 
 
 def options():
+    list = exerciseList.keyList().split("\n")[0:-1] #creates list of all exercises
+    autoOption = []
+    for entry in autoAdjustOption:
+        try:
+            nameSplit = entry.split(" ")
+            nameList = []
+            for word in nameSplit:
+                nameList.append(word.capitalize())
+                name = " ".join(nameList)
+        except:
+            name = entry.capitalize()
+        autoOption.append(name)
+
     layout = [
              [sg.Text("Options:", font=heading1)],
-             [sg.Text("Appearances", font=heading2)],
              [sg.Text("Theme", font=default)],
              [sg.Combo(["Dark", "Light"], default_value=themeOption.capitalize(), font=default, size=(20,1), key="-THEME-")],
              [sg.Text("Half Sets", font=default)],
              [sg.Combo(["On", "Off"], default_value=halfSetsOption.capitalize(), font=default, size=(20,1), key="-HALFSETS-")],
              [sg.Text("Difficulty", font=default)],
              [sg.Combo(["Hard", "Normal", "Easy"], default_value=difficultyOption.capitalize(), font=default, size=(20,1), key="-DIFFICULTY-")],
+             [sg.Text("Auto Adjust Exercises", font=default)],
+             [sg.Listbox(list, default_values=autoOption, select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE, font=default, size=(20,3), key="-EXERCISES-")],
              [sg.Submit("Apply Changes", font=default, key="optionsSubmit"), sg.Button("Close", font=default, key="close")]
              ]
     
@@ -343,10 +365,19 @@ while True:
             current = exerciseDetails[4].split("*")
             line3 = "Your original daily goal was " + str(original[1]) + " set(s) of " + str(original[0]) + " rep(s)."
             line4 = "Your current daily goal is " + str(current[1]) + " set(s) of " + str(current[0]) + " rep(s)."
+            autoList = settings.readSettings()["autoAdjust"]
+            print(autoList)
+            print(selected)
+            if selected in autoList:
+                auto = " "
+            else:
+                auto = " not "
+            line5 = "This exercise will" + auto + "adjust automatically based\non your progress."
             window["-LINE1-"].update(line1)
             window["-LINE2-"].update(line2)
             window["-LINE3-"].update(line3)
             window["-LINE4-"].update(line4)
+            window["-LINE5-"].update(line5)
     
     if event == "Edit Exercises": #done
         window2 = edit()
@@ -395,10 +426,16 @@ while True:
         else:
             settings.changeSetting("difficulty", "normal")
 
+        autoAdjustExercises = []
+        for exercise in values["-EXERCISES-"]:
+            autoAdjustExercises.append(exercise.lower())
+        settings.changeSetting("autoAdjust", autoAdjustExercises)
+
         option = settings.readSettings()
         themeOption = option["theme"]
         halfSetsOption = option["halfSets"]
         difficultyOption = option["difficulty"]
+        autoAdjustOption = option["autoAdjust"]
         event = "close"
 
     if event == "Data Storage Location": #done
