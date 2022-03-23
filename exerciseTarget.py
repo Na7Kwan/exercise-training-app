@@ -78,7 +78,7 @@ def evaluateExercise(oldGoal, entry):
         recentChange = False
         for date in lastTen:
             details = record[date][1].split("*")
-            if record[date][0] != record[date][1] and int(details[0]) <= 5:
+            if record[date][0] != record[date][1] and int(details[0]) >= 5:
                 recordDone = False
             if str(record[date][1]) != str(record[lastTen[0]][1]):
                 recentChange = True
