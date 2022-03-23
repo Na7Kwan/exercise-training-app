@@ -118,7 +118,7 @@ def main():
              [sg.Text(welcome, font=heading1)],
              [sg.Text("Today is Day " + str(daysSince + 1) + " of using this app", font=heading2)],
              [sg.Text("Your activity this past week:", font=heading2)],
-             [completionRecord.get(2)], #gets visual of exercise in past 7 days
+             [completionRecord.get(2, (daysSince + 1))], #gets visual of exercise in past 7 days
              [sg.Text("Today's exercises:", font=heading2)],
              [sg.Text(exerciseList.getList(), font=default)], #gets list of exercises and remaining reps and sets for the day
              [buttonSubmit],

@@ -49,10 +49,11 @@ v3.0.6 - Added screenshots to README
 v3.0.7 - Fixed black and white completion record  
 v3.0.8 - Major bug fixes  
 v3.0.9 - Added option to select exercises to not auto adjust  
+v3.1.0 - Added different shade to completion record to show completed for that day  
 ## Planned:
 - [ ] proper except catches  
 - [ ] exercise rotation based on day of the week  
-- [ ] optimise .exe file size
+- [ ] optimise .exe file size  
 ## Notes:
 - Windows OS .bat script only supports up to v3.0.0  
 - Continue to add more settings options  

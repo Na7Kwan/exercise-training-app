@@ -15,16 +15,27 @@ def toVisual(fL): #builds heatmap
     return buildRecord
 
 
-def toVisual2(fL): #builds new heatmap
-    #buildRecord = [sg.Image("images/red.png")]
+def toVisual2(fL, lastDiff): #builds new heatmap
     buildRecord = []
-    for record in fL:
-        if record == "Y":
-            buildRecord.append(sg.Image("images/resources/green-50x50.png"))
-        elif record == "H":
-            buildRecord.append(sg.Image("images/resources/orange-50x50.png"))
-        else:
-            buildRecord.append(sg.Image("images/resources/red-50x50.png"))
+    print(lastDiff)
+    if lastDiff and fL[-1] == "Y":
+        fL.pop(-1)
+        for record in fL:
+            if record == "Y":
+                buildRecord.append(sg.Image("images/resources/green-50x50.png"))
+            elif record == "H":
+                buildRecord.append(sg.Image("images/resources/orange-50x50.png"))
+            else:
+                buildRecord.append(sg.Image("images/resources/red-50x50.png"))
+        buildRecord.append(sg.Image("images/resources/darkgreen-50x50.png"))
+    else:
+        for record in fL:
+            if record == "Y":
+                buildRecord.append(sg.Image("images/resources/green-50x50.png"))
+            elif record == "H":
+                buildRecord.append(sg.Image("images/resources/orange-50x50.png"))
+            else:
+                buildRecord.append(sg.Image("images/resources/red-50x50.png"))
     return buildRecord
 
 
@@ -35,7 +46,7 @@ def insert(letter): #allows for letters to be inserted into the completion recor
     return True
 
 
-def get(version = 1): #fetches completion record of last 7 days
+def get(version = 1, days = 0): #fetches completion record of last 7 days
     file = open(dataLocation.completionRecord(), "r")
     fileContent = file.read()
     fileList = fileContent.split(", ")
@@ -48,10 +59,14 @@ def get(version = 1): #fetches completion record of last 7 days
             visualRecord = toVisual(fileList[-8:-1]) #if not, build all entries
         return(" ".join(visualRecord))
     elif version == 2:
-        if len(fileList) <= 8: #if more than 7 days are past, build only last 7 entries
-            visualRecord = toVisual2(fileList[0:-1])
+        if len(fileList) == days + 1:
+            lastDiff = True
         else:
-            visualRecord = toVisual2(fileList[-8:-1]) #if not, build all entries
+            lastDiff = False
+        if len(fileList) <= 8: #if more than 7 days are past, build only last 7 entries
+            visualRecord = toVisual2(fileList[0:-1], lastDiff)
+        else:
+            visualRecord = toVisual2(fileList[-8:-1], lastDiff) #if not, build all entries
         return visualRecord
 
 def fill(days): #fills in skipped days when the app was not opened
