@@ -17,7 +17,6 @@ def toVisual(fL): #builds heatmap
 
 def toVisual2(fL, lastDiff): #builds new heatmap
     buildRecord = []
-    print(lastDiff)
     if lastDiff and fL[-1] == "Y":
         fL.pop(-1)
         for record in fL:
