@@ -47,7 +47,7 @@ v3.0.4 - Minor bug fixes
 v3.0.5 - Major bug fixes  
 v3.0.6 - Added screenshots to README  
 v3.0.7 - Fixed black and white completion record  
-v3.0.8 - Minor bug fixes
+v3.0.8 - Major bug fixes
 ## Planned:
 - [ ] proper except catches  
 - [ ] exercise rotation based on day of the week  
