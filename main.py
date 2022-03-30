@@ -63,6 +63,8 @@ except:
 
 daysSince = getDay(dateStart)
 date = str(getDate())
+month = int(date.split("/")[1])
+year = int(date.split("/")[0])
 
 if completionRecord.fill(daysSince) == False: #checks if completion record matches days past
     sg.Print("RecordError: Record mismatch")
@@ -110,9 +112,10 @@ def main():
     buttonMore = sg.Button("More Exercise Details", font=default, size=(22,2))
     buttonEdit = sg.Button("Edit Exercises", font=default, size=(22,2))
     buttonDelete = sg.Button("Delete Exercise", font=default, size=(22,2))
-    buttonOptions = sg.Button("Options", font=default, size=(22,2))
+    buttonCalendar = sg.Button("View Calendar", font=default, size=(22,2))
     buttonLocation = sg.Button("Data Storage Location", font=default, size=(22,2))
-    buttonQuit = sg.Button("Quit", font=default, size=(46,2))
+    buttonOptions = sg.Button("Options", font=default, size=(22,2))
+    buttonQuit = sg.Button("Quit", font=default, size=(22,2))
 
     layout = [
              [sg.Text(welcome, font=heading1)],
@@ -124,8 +127,8 @@ def main():
              [buttonSubmit],
              [buttonAdd, buttonMore],
              [buttonEdit, buttonDelete],
-             [buttonOptions, buttonLocation],
-             [buttonQuit]
+             [buttonCalendar, buttonLocation],
+             [buttonOptions, buttonQuit]
              ]
 
     return sg.Window("Exercise Training App", layout, size=(450,800), resizable=True, finalize=True)
@@ -219,6 +222,38 @@ def delete():
     return sg.Window("Delete Exercise", layout, size=(450,800), resizable=True, finalize=True)
 
 
+def calendar():
+    weeks = completionRecord.calendarView(month, year)
+    layout = [
+             [sg.Text("Calendar View:", font=heading1)],
+             [sg.Text("", font=default, key="-MONTH-")],
+             [sg.Text("  Su      M      Tu      W      Th      F       Sa    ", font=heading2)],
+             [sg.Frame("", [weeks[0]], border_width=0, key="-WEEK1-")],
+             [sg.Frame("", [weeks[1]], border_width=0, key="-WEEK2-")],
+             [sg.Frame("", [weeks[2]], border_width=0, key="-WEEK3-")],
+             [sg.Frame("", [weeks[3]], border_width=0, key="-WEEK4-")],
+             [sg.Frame("", [weeks[4]], border_width=0, key="-WEEK5-")],
+             [sg.Frame("", [weeks[5]], border_width=0, key="-WEEK6-")],
+             [sg.Button("Previous Month", font=default, key="previous"), sg.Button("Next Month", font=default, key="next")],
+             [sg.Button("Close", font=default, key="close")]
+             ]
+    
+    return sg.Window("View Calendar", layout, size=(450,800), resizable=True, finalize=True)
+
+
+def location():
+    rootFolder = dataLocation.root()
+
+    layout = [
+             [sg.Text("Data Storage Location:", font=heading1)],
+             [sg.InputText(rootFolder, size=(20,1), font=default, key="-FOLDER-"), sg.FolderBrowse(font=default)], 
+             [sg.Submit("Save Location", font=default, key="locationSubmit"), sg.Submit("Import from Location", font=default, key="importSubmit")], 
+             [sg.Button("Close", font=default, key="close")]
+             ]
+
+    return sg.Window("Data Storage Location", layout, size=(450,800), resizable=True, finalize=True)
+
+
 def options():
     list = exerciseList.keyList().split("\n")[0:-1] #creates list of all exercises
     autoOption = []
@@ -247,19 +282,6 @@ def options():
              ]
     
     return sg.Window("Options", layout, size=(450,800), resizable=True, finalize=True)
-
-
-def location():
-    rootFolder = dataLocation.root()
-
-    layout = [
-             [sg.Text("Data Storage Location:", font=heading1)],
-             [sg.InputText(rootFolder, size=(20,1), font=default, key="-FOLDER-"), sg.FolderBrowse(font=default)], 
-             [sg.Submit("Save Location", font=default, key="locationSubmit"), sg.Submit("Import from Location", font=default, key="importSubmit")], 
-             [sg.Button("Close", font=default, key="close")]
-             ]
-
-    return sg.Window("Data Storage Location", layout, size=(450,800), resizable=True, finalize=True)
 
 
 window1, window2 = main(), None
@@ -401,7 +423,30 @@ while True:
             addExercise.deleteExercise(key)
             event = "close"
     
-    if event == "Options":
+    if event == "View Calendar": #WIP
+        window2 = calendar()
+        window2.TKroot.focus_set()
+        window.close()
+        window1 = None
+    if event == "previous": #WIP
+        pass
+    if event == "next":
+        pass
+    
+    if event == "Data Storage Location": #done
+        window2 = location()
+        window2.TKroot.focus_set()
+        window.close()
+        window1 = None
+    if event == "locationSubmit":
+        dataLocation.setLocation(values["-FOLDER-"])
+        event = "close"
+    if event == "importSubmit": #done
+        dataLocation.importLocation(values["-FOLDER-"])
+        sg.popup("Restart the app to ensure all data is imported correctly")
+        event = "close"
+    
+    if event == "Options": #WIP
         window2 = options()
         window2.TKroot.focus_set()
         window.close()
@@ -436,19 +481,6 @@ while True:
         halfSetsOption = option["halfSets"]
         difficultyOption = option["difficulty"]
         autoAdjustOption = option["autoAdjust"]
-        event = "close"
-
-    if event == "Data Storage Location": #done
-        window2 = location()
-        window2.TKroot.focus_set()
-        window.close()
-        window1 = None
-    if event == "locationSubmit":
-        dataLocation.setLocation(values["-FOLDER-"])
-        event = "close"
-    if event == "importSubmit": #done
-        dataLocation.importLocation(values["-FOLDER-"])
-        sg.popup("Restart the app to ensure all data is imported correctly")
         event = "close"
 
     if event == "Quit": #done

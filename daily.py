@@ -76,3 +76,11 @@ def dailyMarkReset(): #marks that today's reps and sets have been reset
     file.write(str(contents))
     file.close()
     return True
+
+
+def getStartDate():
+    file = open(dataLocation.daily(), "r")
+    contents = file.read()
+    file.close()
+    contentList = contents.split(" - ")
+    return contentList[3]

@@ -1,5 +1,8 @@
 import exerciseList;
 import dataLocation;
+import daily;
+import settings;
+import calendar;
 import PySimpleGUI as sg;
 
 
@@ -33,8 +36,16 @@ def toVisual2(fL, lastDiff): #builds new heatmap
                 buildRecord.append(sg.Image("images/resources/green-50x50.png"))
             elif record == "H":
                 buildRecord.append(sg.Image("images/resources/orange-50x50.png"))
-            else:
+            elif record == "N":
                 buildRecord.append(sg.Image("images/resources/red-50x50.png"))
+            elif record == "B":
+                buildRecord.append(sg.Image("images/resources/outline-50x50.png"))
+            else:
+                if settings.readSettings()["theme"] == "light":
+                    buildRecord.append(sg.Image("images/resources/white-50x50.png"))
+                else:
+                    buildRecord.append(sg.Image("images/resources/black-50x50.png"))
+                
     return buildRecord
 
 
@@ -87,3 +98,55 @@ def fill(days): #fills in skipped days when the app was not opened
     else: #if they equal then nothing
         file.close()
         return True
+
+    
+def calendarView(month, year):
+    file = open(dataLocation.completionRecord(), "r")
+    fileContent = file.read()
+    fileList = fileContent.split(", ")[0:-1]
+    file.close()
+
+    startDate = str(daily.getStartDate()).split("/")
+    cal = calendar.TextCalendar(6)
+    calMonth = str(cal.formatmonth(year, month)).split("\n")[2:-1]
+
+    monthCompletionRecord = []
+
+    if int(month) == int(startDate[1]):
+        weekNumber = 0
+        recordIndex = 0
+        for week in calMonth:
+            weekRecord = []
+            weekNumber += 1
+            week = week.replace("  ", " ")
+            week = week.strip()
+            week = week.split(" ")
+            if len(week) < 7:
+                missing = 7 - len(week)
+                if weekNumber == 1:
+                    for i in range(missing):
+                        week.insert(0, "0")
+                else:
+                    for i in range(missing):
+                        week.append("0")
+            
+            for day in week:
+                if day == "0":
+                    weekRecord.append("B")
+                else:
+                    if int(day) < int(startDate[2]):
+                        weekRecord.append("M")
+                    if int(day) >= int(startDate[2]):
+                        try:
+                            weekRecord.append(fileList[recordIndex])
+                            recordIndex += 1
+                        except:
+                            weekRecord.append("M")
+            weekCompletionRecord = toVisual2(weekRecord, False)
+            monthCompletionRecord.append(weekCompletionRecord)
+    else:   
+        print(fileList)
+        print(startDate)
+    if len(monthCompletionRecord) < 6:
+        monthCompletionRecord.append("")
+    return monthCompletionRecord

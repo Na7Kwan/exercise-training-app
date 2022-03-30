@@ -233,9 +233,10 @@ def checkHalf():
         exercises = {}
     sumPercents = 0
     for key in exercises:
-        done = int(exercises[key][1])
+        left = int(exercises[key][1])
         goal = exercises[key][4]
         total = int(goal.split("*")[1])
+        done = total - left
         percent = done / total
         sumPercents = sumPercents + percent
     averageCompletion = sumPercents / len(exercises)
