@@ -444,6 +444,14 @@ while True:
     if event == "importSubmit": #done
         dataLocation.importLocation(values["-FOLDER-"])
         sg.popup("Restart the app to ensure all data is imported correctly")
+        try:
+            file = open(dataLocation.daily(), "r")
+            infoString = file.read()
+            dateStart = infoString.split(" - ")[3]
+            file.close()
+        except:
+            dateStart = getDate()
+        daysSince = getDay(dateStart)
         event = "close"
     
     if event == "Options": #WIP
