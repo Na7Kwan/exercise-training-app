@@ -159,3 +159,8 @@ def calendarView(month, year):
     if len(monthCompletionRecord) < 6:
         monthCompletionRecord.append("")
     return monthCompletionRecord
+
+
+def getMonthName(month):
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    return months[int(month-1)]

@@ -224,9 +224,11 @@ def delete():
 
 def calendar(viewMonth = month, viewYear = year):
     weeks = completionRecord.calendarView(viewMonth, viewYear)
+    monthName = completionRecord.getMonthName(viewMonth)
     layout = [
-             [sg.Text("Calendar View:\n", font=heading1)],
-             [sg.InputText(viewMonth, visible=True, font=default, key="-MONTH-")],
+             [sg.Text("Calendar View", font=heading1)],
+             [sg.InputText(viewMonth, visible=False, font=default, key="-MONTH-")],
+             [sg.Text("                             " + monthName, font=heading2)],
              [sg.Text("  Su      M      Tu      W      Th      F       Sa    ", font=heading2)],
              [sg.Frame("", [weeks[0]], border_width=0, key="-WEEK1-")],
              [sg.Frame("", [weeks[1]], border_width=0, key="-WEEK2-")],
