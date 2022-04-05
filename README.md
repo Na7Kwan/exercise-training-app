@@ -50,12 +50,12 @@ v3.0.7 - Fixed black and white completion record
 v3.0.8 - Major bug fixes  
 v3.0.9 - Added option to select exercises to not auto adjust  
 v3.1.0 - Added different shade to completion record to show completed for that day  
-v3.1.1 - Minor bug fixes
+v3.1.1 - Minor bug fixes  
+v4.0.0 - Added completion record in calendar format  
 ## Planned:
 - [ ] proper except catches  
 - [ ] exercise rotation based on day of the week  
 - [ ] optimise .exe file size  
-- [ ] view entire completion record in calendar formats (WIP)  
 - [ ] bug where dark green only appears on relaunch of app (fix by using different letter which converts back daily)
 ## Notes:
 - Windows OS .bat script only supports up to v3.0.0  

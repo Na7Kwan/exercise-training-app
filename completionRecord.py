@@ -3,7 +3,17 @@ import dataLocation;
 import daily;
 import settings;
 import calendar;
+import datetime;
 import PySimpleGUI as sg;
+
+
+def getDayMonth(date, month, year): #calculates the days between a date and the date this app was first opened
+    startDateList = date #gets the start date
+
+    todayDate = datetime.date(int(year), int(month), 1) #converts to datetime
+    startDate = datetime.date(int(startDateList[0]), int(startDateList[1]), int(startDateList[2])) #converts to datetime
+    difDates = todayDate-startDate #subtracts days
+    return(difDates.days) #returns difference
 
 
 def toVisual(fL): #builds heatmap
@@ -111,42 +121,41 @@ def calendarView(month, year):
     calMonth = str(cal.formatmonth(year, month)).split("\n")[2:-1]
 
     monthCompletionRecord = []
-
-    if int(month) == int(startDate[1]):
-        weekNumber = 0
+    weekNumber = 0
+    if int(month) == int(startDate[1]) and int(year) == int(startDate[0]):
         recordIndex = 0
-        for week in calMonth:
-            weekRecord = []
-            weekNumber += 1
-            week = week.replace("  ", " ")
-            week = week.strip()
-            week = week.split(" ")
-            if len(week) < 7:
-                missing = 7 - len(week)
-                if weekNumber == 1:
-                    for i in range(missing):
-                        week.insert(0, "0")
+    elif int(month) > int(startDate[1]) and int(year) == int(startDate[0]):
+        recordIndex = getDayMonth(startDate, month, year)
+    for week in calMonth:
+        weekRecord = []
+        weekNumber += 1
+        week = week.replace("  ", " ")
+        week = week.strip()
+        week = week.split(" ")
+        if len(week) < 7:
+            missing = 7 - len(week)
+            if weekNumber == 1:
+                for i in range(missing):
+                    week.insert(0, "0")
+            else:
+                for i in range(missing):
+                    week.append("0")
+    
+        for day in week:
+            if day == "0":
+                weekRecord.append("B")
+            else:
+                if int(month) == int(startDate[1]) and int(day) < int(startDate[2]):
+                    weekRecord.append("M")
                 else:
-                    for i in range(missing):
-                        week.append("0")
-            
-            for day in week:
-                if day == "0":
-                    weekRecord.append("B")
-                else:
-                    if int(day) < int(startDate[2]):
+                    try:
+                        weekRecord.append(fileList[recordIndex])
+                        recordIndex += 1
+                    except:
                         weekRecord.append("M")
-                    if int(day) >= int(startDate[2]):
-                        try:
-                            weekRecord.append(fileList[recordIndex])
-                            recordIndex += 1
-                        except:
-                            weekRecord.append("M")
-            weekCompletionRecord = toVisual2(weekRecord, False)
-            monthCompletionRecord.append(weekCompletionRecord)
-    else:   
-        print(fileList)
-        print(startDate)
+        weekCompletionRecord = toVisual2(weekRecord, False)
+        monthCompletionRecord.append(weekCompletionRecord)
+
     if len(monthCompletionRecord) < 6:
         monthCompletionRecord.append("")
     return monthCompletionRecord

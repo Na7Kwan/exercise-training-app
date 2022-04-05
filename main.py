@@ -222,11 +222,11 @@ def delete():
     return sg.Window("Delete Exercise", layout, size=(450,800), resizable=True, finalize=True)
 
 
-def calendar():
-    weeks = completionRecord.calendarView(month, year)
+def calendar(viewMonth = month, viewYear = year):
+    weeks = completionRecord.calendarView(viewMonth, viewYear)
     layout = [
-             [sg.Text("Calendar View:", font=heading1)],
-             [sg.Text("", font=default, key="-MONTH-")],
+             [sg.Text("Calendar View:\n", font=heading1)],
+             [sg.InputText(viewMonth, visible=True, font=default, key="-MONTH-")],
              [sg.Text("  Su      M      Tu      W      Th      F       Sa    ", font=heading2)],
              [sg.Frame("", [weeks[0]], border_width=0, key="-WEEK1-")],
              [sg.Frame("", [weeks[1]], border_width=0, key="-WEEK2-")],
@@ -235,7 +235,7 @@ def calendar():
              [sg.Frame("", [weeks[4]], border_width=0, key="-WEEK5-")],
              [sg.Frame("", [weeks[5]], border_width=0, key="-WEEK6-")],
              [sg.Button("Previous Month", font=default, key="previous"), sg.Button("Next Month", font=default, key="next")],
-             [sg.Button("Close", font=default, key="close")]
+             [sg.Button("Close", font=default, key="close")],
              ]
     
     return sg.Window("View Calendar", layout, size=(450,800), resizable=True, finalize=True)
@@ -429,9 +429,17 @@ while True:
         window.close()
         window1 = None
     if event == "previous": #WIP
-        pass
-    if event == "next":
-        pass
+        if int(values["-MONTH-"]) != 1:
+            lastMonth = int(values["-MONTH-"])-1
+            window2 = calendar(lastMonth)
+            window2.TKroot.focus_set()
+            window.close()
+    if event == "next": #WIP
+        if int(values["-MONTH-"]) != 12:
+            nextMonth = int(values["-MONTH-"])+1
+            window2 = calendar(nextMonth)
+            window2.TKroot.focus_set()
+            window.close()
     
     if event == "Data Storage Location": #done
         window2 = location()
