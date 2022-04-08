@@ -81,9 +81,6 @@ else:
     welcome = "Welcome"
     daily.firstTime(date)
 
-exerciseList.resetCheck() #checks if exerciseList has been reset
-exerciseList.checkComplete() #checks if all activities are complete
-
 testOptions = True
 while testOptions:
     option = settings.readSettings()
@@ -107,6 +104,9 @@ visual = ("Open Sans", 26)
 
 
 def main():
+    exerciseList.resetCheck() #checks if exerciseList has been reset
+    exerciseList.checkComplete() #checks if all activities are complete
+    
     buttonSubmit = sg.Button("Submit Today's Sets", font=default, size=(46,2))
     buttonAdd = sg.Button("Add Exercise", font=default, size=(22,2))
     buttonMore = sg.Button("More Exercise Details", font=default, size=(22,2))
