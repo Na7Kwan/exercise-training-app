@@ -89,6 +89,7 @@ while testOptions:
         halfSetsOption = option["halfSets"]
         difficultyOption = option["difficulty"]
         autoAdjustOption = option["autoAdjust"]
+        cheatDayOption = option["cheatDay"]
         testOptions = False
     except:
         settings.checkSettings()
@@ -143,6 +144,8 @@ def submit():
              [sg.Text("")],
              [sg.Combo(list, font=default, size=(20,1), key="-KEY-")],
              [sg.Button("Submit Half Sets", font=default, key="submitHalf")],
+             [sg.Text("")],
+             [sg.Button("Cheat Day", font=default, key="cheatSubmit")],
              [sg.Text("")],
              [sg.Button("Close", font=default, key="close")]
              ]
@@ -280,6 +283,8 @@ def options():
              [sg.Combo(["Hard", "Normal", "Easy"], default_value=difficultyOption.capitalize(), font=default, size=(20,1), key="-DIFFICULTY-")],
              [sg.Text("Auto Adjust Exercises", font=default)],
              [sg.Listbox(list, default_values=autoOption, select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE, font=default, size=(20,3), key="-EXERCISES-")],
+             [sg.Text("Cheat Day", font=default)],
+             [sg.Combo(["On", "Off"], default_value=cheatDayOption.capitalize(), font=default, size=(20,1), key="-CHEATDAY-")],
              [sg.Submit("Apply Changes", font=default, key="optionsSubmit"), sg.Button("Close", font=default, key="close")]
              ]
     
@@ -348,7 +353,11 @@ while True:
             calculatedSets = round(calculatedSets)
             currentSets = currentSets - calculatedSets
             submitExercises.markOne(values["-KEY-"].lower(), currentSets, date)
-    
+    if event == "cheatSubmit": #done
+        if cheatDayOption == "on":
+            submitExercises.cheatDay(date)
+        event = "close"
+
     if event == "Add Exercise": #done
         window2 = add()
         window2.TKroot.focus_set()
@@ -494,11 +503,17 @@ while True:
             autoAdjustExercises.append(exercise.lower())
         settings.changeSetting("autoAdjust", autoAdjustExercises)
 
+        if values["-CHEATDAY-"] == "On":
+            settings.changeSetting("cheatDay", "on")
+        else:
+            settings.changeSetting("cheatDay", "off")
+
         option = settings.readSettings()
         themeOption = option["theme"]
         halfSetsOption = option["halfSets"]
         difficultyOption = option["difficulty"]
         autoAdjustOption = option["autoAdjust"]
+        cheatDayOption = option["cheatDay"]
         event = "close"
 
     if event == "Quit": #done

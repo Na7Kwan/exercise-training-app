@@ -52,12 +52,18 @@ v3.0.9 - Added option to select exercises to not auto adjust
 v3.1.0 - Added different shade to completion record to show completed for that day  
 v3.1.1 - Minor bug fixes  
 v4.0.0 - Added completion record in calendar format  
-v4.0.1 - Minor bug fixes
+v4.0.1 - Minor bug fixes  
+v4.0.2 - Added cheat days, minor changes to lay groundwork for exerciseTarget fixes  
 ## Planned:
 - [ ] proper except catches  
 - [ ] exercise rotation based on day of the week  
 - [ ] optimise .exe file size  
-- [ ] GUI overhaul  
+- [ ] GUI overhaul:  
+- [ ] proper icons  
+- [ ] nicer buttons  
+- [ ] custom designed theme  
+- [ ] fix exerciseTarget to set nice rep numbers  
+- [ ] +1 bug still occuring
 ## Notes:
 - Windows OS .bat script only supports up to v3.0.0  
 - Continue to add more settings options  

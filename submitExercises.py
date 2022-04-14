@@ -29,3 +29,15 @@ def markOne(key, sets, date):
         return success
     else:
         return False
+
+
+def cheatDay(date): #marks today as cheatday
+    if daily.checkDailyComplete(): #if already marked done
+        return False
+    else:
+        success1 = completionRecord.insert("C") #inserts C into completionRecord.txt
+        success2 = daily.dailyMarkComplete() #marks all done for the day
+        if success1 and success2:
+            return True
+        else:
+            return False

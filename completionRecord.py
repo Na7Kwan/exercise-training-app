@@ -50,6 +50,8 @@ def toVisual2(fL, lastDiff): #builds new heatmap
                 buildRecord.append(sg.Image("images/resources/red-50x50.png"))
             elif record == "B":
                 buildRecord.append(sg.Image("images/resources/outline-50x50.png"))
+            elif record == "C":
+                buildRecord.append(sg.Image("images/resources/blue-50x50.png"))
             else:
                 if settings.readSettings()["theme"] == "light":
                     buildRecord.append(sg.Image("images/resources/white-50x50.png"))

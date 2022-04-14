@@ -4,6 +4,63 @@ import settings;
 import dataLocation;
 
 
+def lowerReps(todayDate, record, goal):
+    lastThree = []
+    for i in range(1, 4):
+        unformatDate = todayDate - datetime.timedelta(days=i)
+        lastThree.append(unformatDate.strftime("%Y/%m/%d"))
+    recordHalf = True
+    recentChange = False
+    for date in lastThree:
+        completedSets = record[date][0].split("*")[1]
+        goalSets = record[date][1].split("*")[1]
+        if int(completedSets) >= int(goalSets):
+            recordHalf = False
+        if str(record[date][1]) != str(record[lastThree[0]][1]):
+            recentChange = True
+    if recordHalf and not recentChange:
+        goal[0] = int(goal[0])*lowerMultiplier
+        goal[0] = str(int(goal[0]))
+    return goal
+
+
+def raiseReps(todayDate, record, goal):
+    lastFive = []
+    for i in range(1, 6):
+        unformatDate = todayDate - datetime.timedelta(days=i)
+        lastFive.append(unformatDate.strftime("%Y/%m/%d"))
+    recordDone = True
+    recentChange = False
+    for date in lastFive:
+        if record[date][0] != record[date][1]:
+            recordDone = False
+        if str(record[date][1]) != str(record[lastFive[0]][1]):
+            recentChange = True
+    if recordDone and not recentChange:
+        goal[0] = int(goal[0])*raiseMultiplier
+        goal[0] = str(int(goal[0]))
+    return goal
+
+
+def raiseUnder5(todayDate, record, goal):
+    lastTen = []
+    for i in range(1, 6):
+        unformatDate = todayDate - datetime.timedelta(days=i)
+        lastTen.append(unformatDate.strftime("%Y/%m/%d"))
+    recordDone = True
+    recentChange = False
+    for date in lastTen:
+        details = record[date][1].split("*")
+        if record[date][0] != record[date][1] and int(details[0]) >= 5:
+            recordDone = False
+        if str(record[date][1]) != str(record[lastTen[0]][1]):
+            recentChange = True
+    if recordDone and not recentChange:
+        goal[0] = int(goal[0])+1
+        goal[0] = str(int(goal[0]))
+    return goal
+
+    
 def evaluateExercise(oldGoal, entry):
     difficulty = settings.readSettings()["difficulty"]
     if difficulty == "normal":
@@ -33,60 +90,10 @@ def evaluateExercise(oldGoal, entry):
     autoList = settings.readSettings()["autoAdjust"]
     
     if entry in autoList:
-        try: #lowers daily goal if last three days failed significantly
-            lastThree = []
-            for i in range(1, 4):
-                unformatDate = todayDate - datetime.timedelta(days=i)
-                lastThree.append(unformatDate.strftime("%Y/%m/%d"))
-            recordHalf = True
-            recentChange = False
-            for date in lastThree:
-                completedSets = record[date][0].split("*")[1]
-                goalSets = record[date][1].split("*")[1]
-                if int(completedSets) >= int(goalSets):
-                    recordHalf = False
-                if str(record[date][1]) != str(record[lastThree[0]][1]):
-                    recentChange = True
-            if recordHalf and not recentChange:
-                goal[0] = int(goal[0])*lowerMultiplier
-                goal[0] = str(int(goal[0]))
-        except:
-            pass
-
-        try: #raises daily goal if last 5 days were done (works on 5+ reps only)
-            lastFive = []
-            for i in range(1, 6):
-                unformatDate = todayDate - datetime.timedelta(days=i)
-                lastFive.append(unformatDate.strftime("%Y/%m/%d"))
-            recordDone = True
-            recentChange = False
-            for date in lastFive:
-                if record[date][0] != record[date][1]:
-                    recordDone = False
-                if str(record[date][1]) != str(record[lastFive[0]][1]):
-                    recentChange = True
-            if recordDone and not recentChange:
-                goal[0] = int(goal[0])*raiseMultiplier
-                goal[0] = str(int(goal[0]))
-        except:
-            pass
-
-        try: #raise daily goal if last 10 days were done (works for under 5 reps only) WIP
-            lastTen = []
-            for i in range(1, 6):
-                unformatDate = todayDate - datetime.timedelta(days=i)
-                lastTen.append(unformatDate.strftime("%Y/%m/%d"))
-            recordDone = True
-            recentChange = False
-            for date in lastTen:
-                details = record[date][1].split("*")
-                if record[date][0] != record[date][1] and int(details[0]) >= 5:
-                    recordDone = False
-                if str(record[date][1]) != str(record[lastTen[0]][1]):
-                    recentChange = True
-            if recordDone and not recentChange:
-                goal[0] = int(goal[0])+1
-                goal[0] = str(int(goal[0]))
+        try:
+            goal = lowerReps(todayDate, record, goal) #lowers daily goal if last three days failed significantly
+            goal = raiseReps(todayDate, record, goal) #raises daily goal if last 5 days were done (works on 5+ reps only)
+            goal = raiseUnder5(todayDate, record, goal) #raise daily goal if last 10 days were done (works for under 5 reps only) WIP
         except:
             pass
 
