@@ -12,12 +12,17 @@ Current functions of the app are:
 - Keeps record of whether exercises have been completed each day  
 - Lowers target if the exercise is too hard  
 - Raises target if the exercise has been completed consistently  
+- Cheat days  
+- Enabling and disabling exercises  
   
 Customisable Options:  
 - Theme  
 - Count half sets  
 - Difficulty  
-- Data saving location
+- Data saving location  
+- Auto exercise target adjusting  
+- Active exercises  
+
 ## Download Latest Release:
 For Windows OS: [Download](https://github.com/Na7Kwan/exercise-training-app/releases/latest)  
 ## Screenshots:
@@ -54,16 +59,19 @@ v3.1.1 - Minor bug fixes
 v4.0.0 - Added completion record in calendar format  
 v4.0.1 - Minor bug fixes  
 v4.0.2 - Added cheat days, minor changes to lay groundwork for exerciseTarget fixes  
+v4.0.3 - Added enabling and disabling exercises, minor bug fixes
 ## Planned:
 - [ ] proper except catches  
 - [ ] exercise rotation based on day of the week  
 - [ ] optimise .exe file size  
+  
 - [ ] GUI overhaul:  
 - [ ] proper icons  
 - [ ] nicer buttons  
 - [ ] custom designed theme  
+  
 - [ ] fix exerciseTarget to set nice rep numbers  
-- [ ] +1 bug still occuring
+- [ ] +1 bug still occuring  
 ## Notes:
 - Windows OS .bat script only supports up to v3.0.0  
 - Continue to add more settings options  

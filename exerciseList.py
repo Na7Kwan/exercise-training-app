@@ -3,9 +3,11 @@ import daily;
 import exerciseTarget;
 import completionRecord;
 import dataLocation;
+import settings;
 
 
 def getList(key = False): #fetches reps and sets remaining per exercise each day
+    activeList = settings.readSettings()["active"]
     file = open(dataLocation.exerciseList(), "r")
     exercisesStr = file.read()
     file.close()
@@ -16,24 +18,25 @@ def getList(key = False): #fetches reps and sets remaining per exercise each day
     if not key: #if a key is not specified
         response = ""
         for entry in exercises:
-            try:
-                nameSplit = entry.split(" ")
-                nameList = []
-                for word in nameSplit:
-                    nameList.append(word.capitalize())
-                name = " ".join(nameList)
-            except:
-                name = entry.capitalize()
-            if len(entry) < 20: #if exercise name less than 20 char, fill to 20
-                response = response + name + ": "
-                spaces = 20 - len(entry)
-                response = response + " "*spaces
-            elif len(entry) == 20: #if exercise name is 20, do nothing
-                response = response + name + ": "
-            else: #if exercise name more than 20 char, replace with ...
-                response = response + name[0:17] + "...: "
-            response = response + str(exercises[entry][0]) + " rep(s) "
-            response = response + str(exercises[entry][1]) + " set(s) left today\n"
+            if entry in activeList:
+                try:
+                    nameSplit = entry.split(" ")
+                    nameList = []
+                    for word in nameSplit:
+                        nameList.append(word.capitalize())
+                    name = " ".join(nameList)
+                except:
+                    name = entry.capitalize()
+                if len(entry) < 20: #if exercise name less than 20 char, fill to 20
+                    response = response + name + ": "
+                    spaces = 20 - len(entry)
+                    response = response + " "*spaces
+                elif len(entry) == 20: #if exercise name is 20, do nothing
+                    response = response + name + ": "
+                else: #if exercise name more than 20 char, replace with ...
+                    response = response + name[0:17] + "...: "
+                response = response + str(exercises[entry][0]) + " rep(s) "
+                response = response + str(exercises[entry][1]) + " set(s) left today\n"
         return response
     else: #else return specified key only
         response = exercises[key]
@@ -82,6 +85,7 @@ def editItem(key, value, edit): #allows for editing of the exerciseList.txt from
 
 
 def completeItemAll(): #changes all remaining reps and sets for each exercise to 0
+    activeList = settings.readSettings()["active"]
     file = open(dataLocation.exerciseList(), "r")
     exercisesStr = file.read()
     file.close()
@@ -90,8 +94,9 @@ def completeItemAll(): #changes all remaining reps and sets for each exercise to
     except:
         exercises = {}
     for entry in exercises: #changes all exercise remaining reps and sets to 0
-        exercises[entry][0] = 0
-        exercises[entry][1] = 0
+        if entry in activeList:
+            exercises[entry][0] = 0
+            exercises[entry][1] = 0
     file = open(dataLocation.exerciseList(), "w")
     file.write(str(exercises))
     file.close()
@@ -166,6 +171,7 @@ def resetCheck(): #resets the daily goal
 def checkComplete(): #checks if record is marked complete if all sets are done
     success = False
     if not daily.checkDailyComplete(): #if not already marked done
+        activeList = settings.readSettings()["active"]
         file = open(dataLocation.exerciseList(), "r")
         exercisesStr = file.read()
         file.close()
@@ -176,7 +182,7 @@ def checkComplete(): #checks if record is marked complete if all sets are done
         if exercises:
             allDone = True
             for entry in exercises:
-                if int(exercises[entry][1]) != 0:
+                if int(exercises[entry][1]) != 0 and entry in activeList:
                     allDone = False
             if allDone: #if all exercises are done, mark as done in daily.txt and insert Y to record
                 success = daily.dailyMarkComplete()

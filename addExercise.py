@@ -8,6 +8,7 @@ def add(name, muscleGroup, original, sets, date): #runs through process of addin
     newExercise = []
     formatOriginal = str(original) + "*" + str(sets)
     autoList = settings.readSettings()["autoAdjust"]
+    activeList = settings.readSettings()["active"]
 
     if int(sets) == 1:
         original = 0
@@ -25,17 +26,21 @@ def add(name, muscleGroup, original, sets, date): #runs through process of addin
     file.write(str(exerciseRecord))
     file.close()
     autoList.append(name)
-    settings.changeSetting("autoAdjust", autoList)
+    activeList.append(name)
+    settings.changeSetting("active", activeList)
     return success
 
 
 def deleteExercise(key):
     autoList = settings.readSettings()["autoAdjust"]
+    activeList = settings.readSettings()["active"]
     if os.path.exists(dataLocation.records(key)):
         os.remove(dataLocation.records(key))
         success = exerciseList.deleteItem(key)
         autoList.remove(key)
+        activeList.remove(key)
         settings.changeSetting("autoAdjust", autoList)
+        settings.changeSetting("active", activeList)
     else:
         success = False
     return success

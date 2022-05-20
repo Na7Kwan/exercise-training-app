@@ -8,7 +8,8 @@ def setupSettings(): #sets up settings.txt
         "halfSets" : "on",
         "difficulty" : "normal",
         "autoAdjust" : [],
-        "cheatDay" : "on"
+        "cheatDay" : "on",
+        "active" : []
     }
     file = open(dataLocation.settings(), "w")
     file.write(str(settings))
@@ -59,7 +60,8 @@ def checkSettings(): #checks all settings exist
         "halfSets" : "on",
         "difficulty" : "normal",
         "autoAdjust" : [],
-        "cheatDay" : "on"
+        "cheatDay" : "on",
+        "active" : []
     }
     for option in newSettings:
         try:

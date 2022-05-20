@@ -90,6 +90,7 @@ while testOptions:
         difficultyOption = option["difficulty"]
         autoAdjustOption = option["autoAdjust"]
         cheatDayOption = option["cheatDay"]
+        activeOption = option["active"]
         testOptions = False
     except:
         settings.checkSettings()
@@ -150,10 +151,11 @@ def submit():
              [sg.Button("Close", font=default, key="close")]
              ]
     for exercise in list:
-        if len(exercise) > 20:
-            exercise = exercise[0:17] + "..."
-        row = [sg.Text(exercise, font=default, size=(40,1)), sg.InputText("0", font=default, size=(4,1), key=exercise)]
-        layout.insert(1, row)
+        if exercise.lower() in activeOption:
+            if len(exercise) > 20:
+                exercise = exercise[0:17] + "..."
+            row = [sg.Text(exercise, font=default, size=(40,1)), sg.InputText("0", font=default, size=(4,1), key=exercise)]
+            layout.insert(1, row)
     
     return sg.Window("Submit Today's Sets", layout, size=(450,800), resizable=True, finalize=True)
 
@@ -272,6 +274,18 @@ def options():
         except:
             name = entry.capitalize()
         autoOption.append(name)
+    
+    actOption = []
+    for entry in activeOption:
+        try:
+            nameSplit = entry.split(" ")
+            nameList = []
+            for word in nameSplit:
+                nameList.append(word.capitalize())
+                name = " ".join(nameList)
+        except:
+            name = entry.capitalize()
+        actOption.append(name)
 
     layout = [
              [sg.Text("Options:", font=heading1)],
@@ -285,6 +299,8 @@ def options():
              [sg.Listbox(list, default_values=autoOption, select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE, font=default, size=(20,3), key="-EXERCISES-")],
              [sg.Text("Cheat Day", font=default)],
              [sg.Combo(["On", "Off"], default_value=cheatDayOption.capitalize(), font=default, size=(20,1), key="-CHEATDAY-")],
+             [sg.Text("Enable Exercises", font=default)],
+             [sg.Listbox(list, default_values=actOption, select_mode=sg.LISTBOX_SELECT_MODE_MULTIPLE, font=default, size=(20,3), key="-ACTIVE-")],
              [sg.Submit("Apply Changes", font=default, key="optionsSubmit"), sg.Button("Close", font=default, key="close")]
              ]
     
@@ -508,12 +524,18 @@ while True:
         else:
             settings.changeSetting("cheatDay", "off")
 
+        activeExercises = []
+        for exercise in values["-ACTIVE-"]:
+            activeExercises.append(exercise.lower())
+        settings.changeSetting("active", activeExercises)
+
         option = settings.readSettings()
         themeOption = option["theme"]
         halfSetsOption = option["halfSets"]
         difficultyOption = option["difficulty"]
         autoAdjustOption = option["autoAdjust"]
         cheatDayOption = option["cheatDay"]
+        activeOption = option["active"]
         event = "close"
 
     if event == "Quit": #done

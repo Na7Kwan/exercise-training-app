@@ -30,33 +30,25 @@ def toVisual(fL): #builds heatmap
 
 def toVisual2(fL, lastDiff): #builds new heatmap
     buildRecord = []
+    for record in fL:
+        if record == "Y":
+            buildRecord.append(sg.Image("images/resources/green-50x50.png"))
+        elif record == "H":
+            buildRecord.append(sg.Image("images/resources/orange-50x50.png"))
+        elif record == "N":
+            buildRecord.append(sg.Image("images/resources/red-50x50.png"))
+        elif record == "B":
+            buildRecord.append(sg.Image("images/resources/outline-50x50.png"))
+        elif record == "C":
+            buildRecord.append(sg.Image("images/resources/blue-50x50.png"))
+        else:
+            if settings.readSettings()["theme"] == "light":
+                buildRecord.append(sg.Image("images/resources/white-50x50.png"))
+            else:
+                buildRecord.append(sg.Image("images/resources/black-50x50.png"))
     if lastDiff and fL[-1] == "Y":
-        fL.pop(-1)
-        for record in fL:
-            if record == "Y":
-                buildRecord.append(sg.Image("images/resources/green-50x50.png"))
-            elif record == "H":
-                buildRecord.append(sg.Image("images/resources/orange-50x50.png"))
-            else:
-                buildRecord.append(sg.Image("images/resources/red-50x50.png"))
+        buildRecord.pop(-1)
         buildRecord.append(sg.Image("images/resources/darkgreen-50x50.png"))
-    else:
-        for record in fL:
-            if record == "Y":
-                buildRecord.append(sg.Image("images/resources/green-50x50.png"))
-            elif record == "H":
-                buildRecord.append(sg.Image("images/resources/orange-50x50.png"))
-            elif record == "N":
-                buildRecord.append(sg.Image("images/resources/red-50x50.png"))
-            elif record == "B":
-                buildRecord.append(sg.Image("images/resources/outline-50x50.png"))
-            elif record == "C":
-                buildRecord.append(sg.Image("images/resources/blue-50x50.png"))
-            else:
-                if settings.readSettings()["theme"] == "light":
-                    buildRecord.append(sg.Image("images/resources/white-50x50.png"))
-                else:
-                    buildRecord.append(sg.Image("images/resources/black-50x50.png"))
                 
     return buildRecord
 
